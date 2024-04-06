@@ -3,10 +3,11 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "ng-18": {
+    "ng-b357": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
+          "changeDetection": "OnPush",
           "style": "scss"
         }
       },
@@ -17,19 +18,29 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/ng-18",
+            "outputPath": "dist/ng-b357",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "sass": {
+                "silenceDeprecations": ["mixed-decls", "color-functions", "global-builtin", "import"]
+              }
+            },
             "assets": [
               {
                 "glob": "**/*",
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "@angular/material/prebuilt-themes/indigo-pink.css",
+              "node_modules/@angular-architects/paper-design/assets/css/bootstrap.css",
+              "node_modules/@angular-architects/paper-design/assets/scss/paper-dashboard.scss",
+              "src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -37,8 +48,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "2MB",
+                  "maximumError": "4MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -46,12 +57,17 @@
                   "maximumError": "4kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "none",
+              "sourceMap": true,
+              "statsJson": true,
+              "namedChunks": true
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "statsJson": true,
+              "namedChunks": true
             }
           },
           "defaultConfiguration": "production"
@@ -60,16 +76,19 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ng-18:build:production"
+              "buildTarget": "ng-b357:build:production"
             },
             "development": {
-              "buildTarget": "ng-18:build:development"
+              "buildTarget": "ng-b357:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "ng-b357:build"
+          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -90,18 +109,14 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
     }
   },
   "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics"
-    ]
+    "packageManager": "pnpm",
+    "schematicCollections": ["@angular-eslint/schematics"]
   }
 }

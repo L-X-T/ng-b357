@@ -1,0 +1,118 @@
+<div class="header">
+  <h1>Flight Search</h1>
+</div>
+
+<form #flightSearchForm="ngForm">
+  <div class="form-group">
+    <label>From (*)</label>
+    <input
+      autocomplete="false"
+      name="from"
+      class="form-control"
+      tabindex="2"
+      [minlength]="minLength"
+      [maxlength]="maxLength"
+      [pattern]="pattern"
+      [ngModelOptions]="{ updateOn: 'change' }"
+      [(ngModel)]="from"
+    />
+    @if (flightSearchForm.controls['from']) {
+      <app-flight-validation-errors [errors]="flightSearchForm.controls['from'].errors" fieldLabel="From" />
+    }
+  </div>
+  <div class="form-group">
+    <label>To (*)</label>
+    <input
+      name="to"
+      class="form-control"
+      tabindex="1"
+      [minlength]="minLength"
+      [maxlength]="maxLength"
+      [pattern]="pattern"
+      [(ngModel)]="to"
+    />
+    @if (flightSearchForm.controls['to']) {
+      <app-flight-validation-errors [errors]="flightSearchForm.controls['to'].errors" fieldLabel="To" />
+    }
+  </div>
+  <div class="form-group">
+    <button
+      type="button"
+      class="btn btn-default btn-spacing"
+      [disabled]="!to || !from || flightSearchForm.invalid || flightSearchForm.pending"
+      (click)="onSearch()"
+    >
+      Search
+    </button>
+    @if (oldSchoolFlights.length > 0) {
+      <button type="button" class="btn btn-default" (click)="onDelayFirstFlight()">Delay 1st Flight</button>
+    }
+  </div>
+</form>
+
+<div class="container">
+  <h3 class="title">Old School Flights</h3>
+  <div class="row">
+    @for (flight of oldSchoolFlights; track flight.id) {
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <app-flight-card [item]="flight" [selected]="basket[flight.id]">
+          <button type="button" class="btn btn-default btn-spacing" (click)="basket[flight.id] = !basket[flight.id]">
+            {{ basket[flight.id] ? 'Rem.' : 'Add' }}
+          </button>
+
+          <button type="button" class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</button>
+
+          <app-flight-status-toggle [(status)]="flight.delayed" />
+        </app-flight-card>
+      </div>
+    } @empty {
+      No flights found.
+    }
+  </div>
+</div>
+
+<div class="container">
+  <h3 class="title">Flights with Async Pipe</h3>
+  <div class="row">
+    @for (flight of flightsSubject | async; track flight.id) {
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <app-flight-card [item]="flight" [selected]="basket[flight.id]">
+          <button type="button" class="btn btn-default btn-spacing" (click)="basket[flight.id] = !basket[flight.id]">
+            {{ basket[flight.id] ? 'Rem.' : 'Add' }}
+          </button>
+
+          <button type="button" class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</button>
+
+          <app-flight-status-toggle [(status)]="flight.delayed" />
+        </app-flight-card>
+      </div>
+    } @empty {
+      No async flights found.
+    }
+  </div>
+</div>
+
+<div class="container">
+  <h3 class="title">Flights with Signal</h3>
+  <div class="row">
+    @for (flight of flights(); track flight.id) {
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <app-flight-card [item]="flight" [selected]="basket[flight.id]">
+          <button type="button" class="btn btn-default btn-spacing" (click)="basket[flight.id] = !basket[flight.id]">
+            {{ basket[flight.id] ? 'Rem.' : 'Add' }}
+          </button>
+
+          <button type="button" class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</button>
+
+          <app-flight-status-toggle [(status)]="flight.delayed" />
+        </app-flight-card>
+      </div>
+    } @empty {
+      No signal flights found.
+    }
+  </div>
+</div>
+
+<pre>{{ basket | json }}</pre>
+
+{{ blinkFirstChild() }}
