@@ -1,0 +1,33 @@
+<div class="sidebar-wrapper">
+  <div class="logo">
+    <a class="simple-text logo-mini" href="/home">
+      <span class="logo-image-small">
+        <img ngSrc="/angular_gradient_68x68.png" width="34" height="34" />
+      </span>
+    </a>
+
+    <button type="button" class="simple-text logo-normal" (click)="goHome()">NG a11y</button>
+  </div>
+
+  <ul class="nav">
+    <li routerLinkActive="active">
+      <a routerLink="/home">
+        <p>Home</p>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a routerLink="/flights/flight-search">
+        <p>Flights</p>
+      </a>
+    </li>
+
+    <li routerLinkActive="active">
+      <a routerLink="/charts">
+        <p>Charts</p>
+      </a>
+    </li>
+  </ul>
+</div>
+
+{{ blink() }}
