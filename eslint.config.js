@@ -34,7 +34,7 @@ module.exports = tseslint.config(
         },
       ],
       '@angular-eslint/no-empty-lifecycle-method': 'warn',
-      '@angular-eslint/prefer-on-push-component-change-detection': 'off',
+      '@angular-eslint/prefer-on-push-component-change-detection': 'warn',
       '@typescript-eslint/consistent-indexed-object-style': 'off',
       '@typescript-eslint/consistent-type-definitions': ['warn', 'type'],
       '@typescript-eslint/naming-convention': [
