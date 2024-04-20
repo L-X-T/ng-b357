@@ -1,9 +1,8 @@
-import { Component, inject, Input, OnChanges } from '@angular/core';
+import { Component, DestroyRef, inject, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Observable } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 import { pattern } from '../../shared/global';
@@ -27,7 +26,8 @@ export class FlightEditComponent implements OnChanges {
   protected editForm!: FormGroup;
 
   private readonly DEBOUNCE_MS = 250;
-  private readonly DELAY_MS = 3_000;
+  private readonly DELAY_MS = 2_500;
+  private readonly destroyRef = inject(DestroyRef);
   private readonly fb = inject(FormBuilder);
   private readonly flightService = inject(FlightService);
   private readonly route = inject(ActivatedRoute);
@@ -49,7 +49,7 @@ export class FlightEditComponent implements OnChanges {
 
     this.flightService
       .save(flightToSave)
-      .pipe(delay(this.DELAY_MS))
+      .pipe(delay(this.DELAY_MS), takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (flight) => {
           // console.warn('FlightEditComponent - onSave()');
