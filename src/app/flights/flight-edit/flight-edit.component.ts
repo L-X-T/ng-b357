@@ -28,10 +28,7 @@ export class FlightEditComponent implements OnChanges {
   private readonly DEBOUNCE_MS = 250;
   private readonly DELAY_MS = 2_500;
   private readonly destroyRef = inject(DestroyRef);
-  private readonly fb = inject(FormBuilder);
   private readonly flightService = inject(FlightService);
-  private readonly route = inject(ActivatedRoute);
-  private readonly router = inject(Router);
 
   constructor() {
     this.setupEditForm();
@@ -58,7 +55,7 @@ export class FlightEditComponent implements OnChanges {
           this.patchFormValue();
           this.message = 'Success saving! Navigating ...';
 
-          setTimeout(() => this.router.navigate(['/flights/flight-search']), this.DELAY_MS);
+          setTimeout(() => inject(Router).navigate(['/flights/flight-search']), this.DELAY_MS);
         },
         error: (errResponse) => {
           console.error(errResponse);
@@ -68,7 +65,7 @@ export class FlightEditComponent implements OnChanges {
   }
 
   private setupEditForm(): void {
-    this.editForm = this.fb.group({
+    this.editForm = inject(FormBuilder).group({
       id: [0, Validators.required],
       from: [
         '',
