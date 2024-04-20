@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
   templateUrl: 'navbar.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavbarComponent {
   private readonly document = inject(DOCUMENT);
