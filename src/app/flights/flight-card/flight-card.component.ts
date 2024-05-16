@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, DoCheck, ElementRef, inject, Input, isDevMode, OnChanges, OnDestroy, OnInit } from '@angular/core';
 
 import moment from 'moment';
 
@@ -13,8 +13,8 @@ import { BlinkService } from '../../shared/blink.service';
   styleUrl: './flight-card.component.scss',
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
-  private debug = false;
+export class FlightCardComponent implements OnChanges, OnInit, DoCheck, OnDestroy {
+  private debug = isDevMode();
 
   @Input({ required: true }) item!: Flight;
   @Input() selected = false;
@@ -33,6 +33,14 @@ export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
   ngOnInit(): void {
     if (this.debug) {
       console.warn('[FlightCardComponent - ngOnInit()]');
+      console.log(this.item);
+      console.log('selected: ' + this.selected);
+    }
+  }
+
+  ngDoCheck(): void {
+    if (this.debug) {
+      console.warn('[FlightCardComponent - ngDoCheck()]');
       console.log(this.item);
       console.log('selected: ' + this.selected);
     }
