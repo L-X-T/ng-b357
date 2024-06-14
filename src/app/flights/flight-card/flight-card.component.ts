@@ -1,4 +1,4 @@
-import { Component,DoCheck, ElementRef, inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component,DoCheck, ElementRef, inject, input, OnChanges, OnDestroy, OnInit } from '@angular/core';
 
 import { DatePipe } from '@angular/common';
 
@@ -17,10 +17,10 @@ import { FlightDatePipe } from '../shared/pipes/flight-date.pipe';
 export class FlightCardComponent implements OnChanges, OnInit, DoCheck, OnDestroy {
   private debug = false;
 
-  @Input({ required: true }) item!: Flight;
-  @Input() selected = false;
+  item = input.required<Flight>();
+  selected = input(false);
 
-  readonly datePipe = new DatePipe('en-US');
+  protected readonly datePipe = new DatePipe('en-US');
 
   private readonly blinkService = inject(BlinkService);
   private readonly elementRef = inject(ElementRef);
