@@ -13,11 +13,13 @@ export const flightRoutes: Routes = [
   {
     path: 'flight-edit/:id',
     component: FlightEditComponent,
+    // title: 'Edit Flight - NG A11y', // remove this for inject(Title).setTitle() to work
   },
 
   {
     path: 'flight-search',
     component: FlightSearchComponent,
+    title: 'Flight Search - NG A11y',
   },
 ];
 
