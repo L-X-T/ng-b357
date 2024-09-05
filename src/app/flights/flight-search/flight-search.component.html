@@ -4,44 +4,74 @@
 
 <form #flightSearchForm="ngForm">
   <div class="form-group">
-    <label>From (*)</label>
+    <label for="from">From (*)</label>
     <input
       autocomplete="false"
+      type="text"
       name="from"
+      id="from"
       class="form-control"
       [ngModelOptions]="{ updateOn: 'change' }"
+      required
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
+      [attr.aria-invalid]="
+        flightSearchForm.controls['from'] &&
+        flightSearchForm.controls['from'].dirty &&
+        flightSearchForm.controls['from'].invalid
+      "
+      [attr.aria-describedby]="
+        flightSearchForm.controls['from'] &&
+        flightSearchForm.controls['from'].dirty &&
+        flightSearchForm.controls['from'].errors
+          ? 'from_errors'
+          : null
+      "
       [(ngModel)]="from"
     />
-    @if (flightSearchForm.controls['from']) {
-      <app-flight-validation-errors [errors]="flightSearchForm.controls['from'].errors" fieldLabel="From" />
+    @if (flightSearchForm.controls['from'] && flightSearchForm.controls['from'].dirty) {
+      <app-flight-validation-errors
+        id="from_errors"
+        [errors]="flightSearchForm.controls['from'].errors"
+        fieldLabel="From"
+      />
     }
   </div>
   <div class="form-group">
-    <label>To (*)</label>
+    <label for="to">To (*)</label>
     <input
+      type="text"
       name="to"
+      id="to"
       class="form-control"
+      required
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
       [(ngModel)]="to"
+      [attr.aria-invalid]="
+        flightSearchForm.controls['to'] &&
+        flightSearchForm.controls['to'].dirty &&
+        flightSearchForm.controls['to'].invalid
+      "
+      [attr.aria-describedby]="
+        flightSearchForm.controls['to'] &&
+        flightSearchForm.controls['to'].dirty &&
+        flightSearchForm.controls['to'].errors
+          ? 'to_errors'
+          : null
+      "
     />
-    @if (flightSearchForm.controls['to']) {
-      <app-flight-validation-errors [errors]="flightSearchForm.controls['to'].errors" fieldLabel="To" />
+    @if (flightSearchForm.controls['to'] && flightSearchForm.controls['to'].dirty) {
+      <app-flight-validation-errors id="to_errors" [errors]="flightSearchForm.controls['to'].errors" fieldLabel="To" />
     }
   </div>
   <div class="form-group">
-    <button
-      type="button"
-      class="btn btn-default"
-      [disabled]="!to || !from || flightSearchForm.invalid || flightSearchForm.pending"
-      (click)="onSearch()"
-    >
+    <button type="submit" class="btn btn-default" [disabled]="flightSearchForm.pending" (click)="onSearch()">
       Search
     </button>
+    <button type="reset" class="btn btn-default" [disabled]="flightSearchForm.pending">Reset</button>
     @if (flights.length > 0) {
       <button type="button" class="btn btn-default" style="margin-left: 10px" (click)="onDelayFirstFlight()">
         Delay 1st Flight

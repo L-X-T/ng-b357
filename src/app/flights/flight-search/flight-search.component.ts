@@ -1,8 +1,9 @@
-import { Component, DestroyRef, inject } from '@angular/core';
+import { Component, DestroyRef, inject, ViewChild } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 import { filter, Observer } from 'rxjs';
 
@@ -38,9 +39,12 @@ export class FlightSearchComponent {
     5: true,
   };
 
+  @ViewChild('flightSearchForm') private readonly flightSearchForm?: NgForm;
+
   private readonly destroyRef = inject(DestroyRef);
   private readonly doc = inject(DOCUMENT);
   private readonly flightService = inject(FlightService);
+  private readonly liveAnnouncer = inject(LiveAnnouncer);
   private readonly router = inject(Router);
 
   constructor() {
@@ -58,6 +62,11 @@ export class FlightSearchComponent {
   }
 
   onSearch(): void {
+    if (this.flightSearchForm?.invalid) {
+      this.markFormGroupDirty(this.flightSearchForm);
+      return;
+    }
+
     // 1. my observable
     const flights$ = this.flightService.find(this.from, this.to);
 
@@ -67,13 +76,16 @@ export class FlightSearchComponent {
         this.flights = flights;
         this.hasSearched = true;
         if (flights.length > 0) {
+          this.liveAnnouncer.announce('Found ' + flights.length + ' flights');
           console.log('Found ' + flights.length + ' flights');
         } else {
+          this.liveAnnouncer.announce('No flights found');
           console.log('No flights found');
         }
       },
       error: (errResp) => {
         this.hasSearched = true;
+        this.liveAnnouncer.announce('Flights could not be loaded');
         console.error('Error loading flights', errResp);
       },
       complete: () => {
@@ -96,10 +108,16 @@ export class FlightSearchComponent {
 
       // Immutable
       // ?
+
+      this.liveAnnouncer.announce('First flight delayed by 10 minutes');
     }
   }
 
   onEdit(id: number): void {
     this.router.navigate(['/flights/flight-edit', id, { showDetails: true }]);
+  }
+
+  private markFormGroupDirty(formGroup: NgForm): void {
+    Object.values(formGroup.controls).forEach((control) => control.markAsDirty());
   }
 }
