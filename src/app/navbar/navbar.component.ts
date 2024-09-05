@@ -8,17 +8,20 @@ import { DOCUMENT } from '@angular/common';
   styleUrl: './navbar.component.scss',
 })
 export class NavbarComponent {
-  private sidebarVisible = false;
+  sidebarVisible = false;
   private readonly doc = inject(DOCUMENT);
 
   onToggleSidebar(): void {
     const body = this.doc.getElementsByTagName('body')[0];
+    const aside = this.doc.getElementsByTagName('aside')[0];
 
     if (!this.sidebarVisible) {
       body.classList.add('nav-open');
+      aside.setAttribute('aria-expanded', 'true');
       this.sidebarVisible = true;
     } else {
       body.classList.remove('nav-open');
+      aside.setAttribute('aria-expanded', 'false');
       this.sidebarVisible = false;
     }
   }
