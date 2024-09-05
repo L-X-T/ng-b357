@@ -1,7 +1,7 @@
 import { Component, computed, DestroyRef, effect, ElementRef, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { BehaviorSubject, Observer } from 'rxjs';
@@ -23,6 +23,7 @@ import { FlightValidationErrorsComponent } from '../flight-validation-errors/fli
     FlightCardComponent,
     FlightStatusToggleComponent,
     FlightValidationErrorsComponent,
+    RouterLink,
   ],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.scss',
@@ -139,10 +140,6 @@ export class FlightSearchComponent {
         return flights;
       });
     }
-  }
-
-  protected onEditFlight(id: number): void {
-    this.router.navigate(['/flights/flight-edit', id, { showDetails: true }]);
   }
 
   protected blinkFirstChild(): void {

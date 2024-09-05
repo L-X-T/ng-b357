@@ -1,15 +1,15 @@
 <div class="wrapper">
-  <div class="sidebar" data-background-color="white" data-active-color="danger">
+  <aside class="sidebar" data-background-color="white" data-active-color="danger" aria-expanded="false">
     <app-sidebar />
-  </div>
+  </aside>
 
-  <div class="main-panel">
-    <app-navbar />
+  <main class="main-panel">
+    <header app-navbar></header>
 
-    <div class="content">
+    <article class="content">
       <router-outlet />
-    </div>
+    </article>
 
-    <app-footer />
-  </div>
+    <footer app-footer></footer>
+  </main>
 </div>

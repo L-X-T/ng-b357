@@ -1,5 +1,5 @@
 import { Component, ElementRef, inject } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 
 import { BlinkService } from '../shared/blink.service';
@@ -13,13 +13,8 @@ import { BlinkService } from '../shared/blink.service';
 export class SidebarComponent {
   private readonly blinkService = inject(BlinkService);
   private readonly elementRef = inject(ElementRef);
-  private readonly router = inject(Router);
 
   protected blink(): void {
     this.blinkService.blinkElementsFirstChild(this.elementRef);
-  }
-
-  protected goHome(): void {
-    this.router.navigate(['/home']);
   }
 }
