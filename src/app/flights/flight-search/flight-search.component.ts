@@ -1,10 +1,9 @@
-import { Component, computed, DestroyRef, effect, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, DestroyRef, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { BehaviorSubject, Observer } from 'rxjs';
+import { Observer } from 'rxjs';
 
 import { pattern } from '../../shared/global';
 
@@ -12,17 +11,19 @@ import { Flight } from '../../entities/flight';
 import { FlightService } from '../flight.service';
 import { FlightCardComponent } from '../flight-card/flight-card.component';
 import { FlightStatusToggleComponent } from '../flight-status-toggle/flight-status-toggle.component';
+import { FlightValidationErrorsComponent } from '../flight-validation-errors/flight-validation-errors.component';
 
 @Component({
   selector: 'app-flight-search',
   standalone: true,
-  imports: [CommonModule, FormsModule, FlightCardComponent, FlightStatusToggleComponent],
+  imports: [FormsModule, FlightCardComponent, FlightStatusToggleComponent, FlightValidationErrorsComponent],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.scss',
 })
 export class FlightSearchComponent {
-  from = 'Hamburg';
-  to = 'Graz';
+  from = '';
+  to = '';
+  hasSearched = false;
 
   minLength = 3;
   maxLength = 15;
@@ -30,11 +31,6 @@ export class FlightSearchComponent {
   private readonly TEN_MINUTES = 10 * 1000 * 60;
 
   flights: Flight[] = []; // old school
-  readonly flightsSubject = new BehaviorSubject<Flight[]>([]); // RxJS
-  private readonly flightsSignal = signal<Flight[]>([]); // Signal
-  private readonly anotherFlightsSignal = signal<Flight[]>([]); // Signal
-
-  readonly computedSignal = computed(() => [...this.flightsSignal(), ...this.anotherFlightsSignal()]);
 
   basket: Record<number, boolean> = {
     3: true,
@@ -46,11 +42,11 @@ export class FlightSearchComponent {
   private readonly router = inject(Router);
 
   constructor() {
-    effect(() => console.log('update: ', this.computedSignal()));
-
     if (this.from && this.to) {
       this.onSearch(); // auto search if default test values are set
     }
+
+    // add focus management here
   }
 
   onSearch(): void {
@@ -61,11 +57,17 @@ export class FlightSearchComponent {
     const flightsObserver: Observer<Flight[]> = {
       next: (flights) => {
         this.flights = flights;
-        this.flightsSubject.next(flights);
-        this.flightsSignal.set(flights);
-        this.anotherFlightsSignal.set(flights);
+        this.hasSearched = true;
+        if (flights.length > 0) {
+          console.log('Found ' + flights.length + ' flights');
+        } else {
+          console.log('No flights found');
+        }
       },
-      error: (errResp) => console.error('Error loading flights', errResp),
+      error: (errResp) => {
+        this.hasSearched = true;
+        console.error('Error loading flights', errResp);
+      },
       complete: () => {
         // console.log('flight$ completed');
       },
@@ -86,51 +88,6 @@ export class FlightSearchComponent {
 
       // Immutable
       // ?
-    }
-
-    // RxJS
-    if (this.flightsSubject.value.length > 0) {
-      const flights = this.flightsSubject.value;
-      const flightDate = new Date(flights[0].date);
-      flightDate.setTime(flightDate.getTime() + this.TEN_MINUTES);
-
-      // Mutable
-      flights[0].date = flightDate.toISOString();
-
-      // Immutable
-      // flights[0] = { ...flights[0], date: flightDate.toISOString() };
-
-      this.flightsSubject.next(flights);
-    }
-
-    // Signal
-    if (this.flightsSignal().length > 0) {
-      // Update
-      this.flightsSignal.update((flights) => {
-        const flightDate = new Date(flights[0].date);
-        flightDate.setTime(flightDate.getTime() + this.TEN_MINUTES);
-
-        // Mutable
-        flights[0].date = flightDate.toISOString();
-
-        // Immutable
-        // flights[0] = { ...flights[0], date: flightDate.toISOString() };
-
-        return flights;
-      });
-
-      this.anotherFlightsSignal.update((flights) => {
-        const flightDate = new Date(flights[0].date);
-        flightDate.setTime(flightDate.getTime() + this.TEN_MINUTES);
-
-        // Mutable
-        flights[0].date = flightDate.toISOString();
-
-        // Immutable
-        // flights[0] = { ...flights[0], date: flightDate.toISOString() };
-
-        return flights;
-      });
     }
   }
 

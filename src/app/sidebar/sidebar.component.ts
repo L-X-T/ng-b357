@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterModule } from '@angular/router';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({
@@ -7,5 +7,12 @@ import { NgOptimizedImage } from '@angular/common';
   standalone: true,
   imports: [RouterModule, NgOptimizedImage],
   templateUrl: 'sidebar.component.html',
+  styleUrl: './sidebar.component.scss',
 })
-export class SidebarComponent {}
+export class SidebarComponent {
+  private router = inject(Router);
+
+  goHome(): void {
+    this.router.navigate(['/home']);
+  }
+}

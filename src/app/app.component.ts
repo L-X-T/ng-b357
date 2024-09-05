@@ -8,7 +8,7 @@ import { FooterComponent } from './footer/footer.component';
 @Component({
   standalone: true,
   imports: [RouterModule, SidebarComponent, NavbarComponent, FooterComponent],
-  selector: 'app-base-root',
+  selector: 'app-accessibility-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
