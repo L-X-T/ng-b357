@@ -9,26 +9,62 @@
   @if (editForm && flight()) {
     <form [formGroup]="editForm">
       <div class="form-group">
+        @let hasIdErrors = editForm.controls.id.touched && editForm.controls.id.errors;
         <label for="id">Id (*)</label>
-        <input id="id" formControlName="id" class="form-control" />
+        <input
+          id="id"
+          formControlName="id"
+          class="form-control"
+          [attr.aria-invalid]="!!hasIdErrors"
+          [attr.aria-describedby]="hasIdErrors ? 'idErrors' : null" />
+        @if (hasIdErrors) {
+          <app-flight-validation-errors id="idErrors" [errors]="editForm.controls['from'].errors" fieldLabel="Id" />
+        }
       </div>
       <div class="form-group">
+        @let hasFromErrors = editForm.controls.from.touched && editForm.controls.from.errors;
         <label for="from">From (*)</label>
-        <input id="from" formControlName="from" class="form-control" />
+        <input
+          id="from"
+          formControlName="from"
+          class="form-control"
+          [attr.aria-invalid]="!!hasFromErrors"
+          [attr.aria-describedby]="hasFromErrors ? 'fromErrors' : null" />
+        @if (hasFromErrors) {
+          <app-flight-validation-errors id="fromErrors" [errors]="editForm.controls['from'].errors" fieldLabel="From" />
+        }
       </div>
       <div class="form-group">
+        @let hasToErrors = editForm.controls.to.touched && editForm.controls.to.errors;
         <label for="to">To (*)</label>
-        <input id="to" formControlName="to" class="form-control" />
+        <input
+          id="to"
+          formControlName="to"
+          class="form-control"
+          [attr.aria-invalid]="!!hasToErrors"
+          [attr.aria-describedby]="hasToErrors ? 'toErrors' : null" />
+        @if (hasToErrors) {
+          <app-flight-validation-errors id="toErrors" [errors]="editForm.controls['to'].errors" fieldLabel="To" />
+        }
       </div>
       <div class="form-group">
+        @let hasDateErrors = editForm.controls.date.touched && editForm.controls.date.errors;
         <label for="date">Date (*)</label>
-        <input id="date" formControlName="date" class="form-control" />
+        <input
+          id="date"
+          formControlName="date"
+          class="form-control"
+          [attr.aria-invalid]="!!hasDateErrors"
+          [attr.aria-describedby]="hasDateErrors ? 'dateErrors' : null" />
+        @if (hasDateErrors) {
+          <app-flight-validation-errors id="dateErrors" [errors]="editForm.controls['to'].errors" fieldLabel="Date" />
+        }
       </div>
       @if (editForm.hasError('roundTrip')) {
         <div class="text-danger">Round trips are not allowed!</div>
       }
       <div class="form-group">
-        <button type="button" class="btn btn-default" (click)="onSave()">Save</button>
+        <button type="submit" class="btn btn-default" (click)="onSave()">Save</button>
       </div>
       @if (message) {
         <div>{{ message }}</div>
