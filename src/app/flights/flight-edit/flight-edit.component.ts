@@ -11,10 +11,11 @@ import { pattern } from '../../shared/global';
 
 import { FlightService } from '../flight.service';
 import { Flight } from '../../entities/flight';
+import { FlightValidationErrorsComponent } from '../flight-validation-errors/flight-validation-errors.component';
 
 @Component({
   selector: 'app-flight-edit',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, FlightValidationErrorsComponent],
   templateUrl: './flight-edit.component.html',
 })
 export class FlightEditComponent {
