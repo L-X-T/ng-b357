@@ -4,36 +4,40 @@
 
 <form #flightSearchForm="ngForm">
   <div class="form-group">
-    <label for="fsf_from">From (*)</label>
+    <label>From (*)</label>
     <input
       autocomplete="false"
-      id="fsf_from"
       name="from"
       class="form-control"
-      required="required"
+      tabindex="2"
       [ngModelOptions]="{ updateOn: 'change' }"
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
       [(ngModel)]="from"
     />
+    @if (flightSearchForm.controls['from']) {
+      <app-flight-validation-errors [errors]="flightSearchForm.controls['from'].errors" fieldLabel="From" />
+    }
   </div>
   <div class="form-group">
-    <label for="fsf_to">To (*)</label>
+    <label>To (*)</label>
     <input
-      id="fsf_to"
       name="to"
       class="form-control"
-      required="required"
+      tabindex="1"
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
       [(ngModel)]="to"
     />
+    @if (flightSearchForm.controls['to']) {
+      <app-flight-validation-errors [errors]="flightSearchForm.controls['to'].errors" fieldLabel="To" />
+    }
   </div>
   <div class="form-group">
     <button
-      type="submit"
+      type="button"
       class="btn btn-default"
       [disabled]="!to || !from || flightSearchForm.invalid || flightSearchForm.pending"
       (click)="onSearch()"
@@ -49,12 +53,11 @@
 </form>
 
 <div class="container">
-  <h3 class="title">Flights with Subscription</h3>
   <div class="row">
     @for (flight of flights; track flight) {
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <app-flight-card [item]="flight" [(selected)]="basket[flight.id]" (edit)="onEdit(flight.id)">
-          <app-flight-status-toggle [(status)]="flight.delayed" />
+          <app-flight-status-toggle style="margin-left: 10px" [(status)]="flight.delayed" />
         </app-flight-card>
       </div>
     } @empty {
@@ -62,37 +65,3 @@
     }
   </div>
 </div>
-
-@if (flightsSubject | async; as asyncFlights) {
-  <div class="container">
-    <h3 class="title">Flights with Async Pipe</h3>
-    <div class="row">
-      @for (flight of asyncFlights; track flight.id) {
-        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-          <app-flight-card [item]="flight" [(selected)]="basket[flight.id]" (edit)="onEdit(flight.id)">
-            <app-flight-status-toggle [(status)]="flight.delayed" />
-          </app-flight-card>
-        </div>
-      } @empty {
-        No async flights found.
-      }
-    </div>
-  </div>
-}
-
-<!--<div class="container">
-  <h3 class="title">Flights with Signal</h3>
-  <div class="row">
-    @for (flight of computedSignal(); track flight) {
-      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <app-flight-card [item]="flight" [(selected)]="basket[flight.id]" (edit)="onEdit(flight.id)">
-          <app-flight-status-toggle style="margin-left: 10px" [(status)]="flight.delayed" />
-        </app-flight-card>
-      </div>
-    } @empty {
-      No signal flights found.
-    }
-  </div>
-</div>-->
-
-<pre>{{ basket | json }}</pre>

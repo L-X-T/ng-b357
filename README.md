@@ -1,4 +1,4 @@
-# Alexander Thalhammer - Workshop Base
+# Alexander Thalhammer - A11y Workshop
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.2 and has since been improved and update by [@LX_T](https://twitter.com/LX_T), currently using Angular 18.2.2.
 
@@ -9,6 +9,10 @@ You'll find the workshop slides in the `slides` directory.
 ## Exercises
 
 You'll find the workshop labs in the `labs` directory.
+
+Take a look at the `00_getting-started.md` lab.
+
+Hint: open the lab in preview mode or in your browser!
 
 ## Development
 
@@ -32,4 +36,4 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help on the Angular CLI use `ng help`, contact your trainer [Alex T.](https://alex.thalhammer.name) or go check our website [Angular Architects](https://www.angulararchitects.io).
