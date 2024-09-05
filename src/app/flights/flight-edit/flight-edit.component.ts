@@ -2,6 +2,7 @@ import { Component, inject, Input, OnChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Title } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
@@ -33,6 +34,7 @@ export class FlightEditComponent implements OnChanges {
   private readonly flightService = inject(FlightService);
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
+  private readonly title = inject(Title);
 
   constructor() {
     this.setupEditForm();
@@ -51,6 +53,7 @@ export class FlightEditComponent implements OnChanges {
       tap((paramMap: ParamMap) => {
         this.id = Number(paramMap.get('id'));
         this.showDetails = paramMap.get('showDetails') === 'true';
+        this.title.setTitle(`Edit Flight #${this.id} - NG A11y`);
       }),
       switchMap((paramMap: ParamMap) => this.flightService.findById('' + paramMap.get('id'))),
     );
