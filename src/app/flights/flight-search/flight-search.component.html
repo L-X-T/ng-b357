@@ -9,11 +9,11 @@
       autocomplete="false"
       name="from"
       class="form-control"
-      tabindex="2"
+      id="fromAirport"
+      [ngModelOptions]="{ updateOn: 'change' }"
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
-      [ngModelOptions]="{ updateOn: 'change' }"
       [(ngModel)]="from"
     />
     @if (flightSearchForm.controls['from']) {
@@ -25,7 +25,7 @@
     <input
       name="to"
       class="form-control"
-      tabindex="1"
+      id="toAirport"
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
@@ -60,7 +60,13 @@
             {{ basket[flight.id] ? 'Rem.' : 'Add' }}
           </button>
 
-          <a class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</a>
+          <a
+            type="button"
+            class="btn btn-defaultbtn-spacing"
+            [routerLink]="['/flights/flight-edit', flight.id, { showDetails: true }]"
+          >
+            Edit
+          </a>
 
           <app-flight-status-toggle [(status)]="flight.delayed" />
         </app-flight-card>
