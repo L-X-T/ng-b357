@@ -3,3 +3,7 @@
     min-height: calc(100vh - 141px);
   }
 }
+
+aside.sidebar:after {
+  background: linear-gradient(#43403c 0%, #000 80%); // fix background contrast
+}
