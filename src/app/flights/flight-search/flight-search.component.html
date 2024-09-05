@@ -4,42 +4,68 @@
 
 <form #flightSearchForm="ngForm">
   <div class="form-group">
-    <label>From (*)</label>
+    <label for="fromAirport">From (*)</label>
+
+    @let hasFromErrors =
+      flightSearchForm.controls['from'] &&
+      flightSearchForm.controls['from'].touched &&
+      flightSearchForm.controls['from'].errors;
+
     <input
       autocomplete="false"
+      type="text"
       name="from"
       class="form-control"
       id="fromAirport"
       [ngModelOptions]="{ updateOn: 'change' }"
+      required
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
+      [attr.aria-invalid]="!!hasFromErrors"
+      [attr.aria-describedby]="hasFromErrors ? 'fromErrors' : null"
       [(ngModel)]="from" />
-    @if (flightSearchForm.controls['from']) {
-      <app-flight-validation-errors fieldLabel="From" [errors]="flightSearchForm.controls['from'].errors" />
+    @if (hasFromErrors) {
+      <app-flight-validation-errors
+        id="fromErrors"
+        fieldLabel="From"
+        [errors]="flightSearchForm.controls['from'].errors" />
     }
   </div>
   <div class="form-group">
-    <label>To (*)</label>
+    <label for="toAirport">To (*)</label>
+
+    @let hasToErrors =
+      flightSearchForm.controls['to'] &&
+      flightSearchForm.controls['to'].touched &&
+      flightSearchForm.controls['to'].errors;
+
     <input
+      type="text"
       name="to"
       class="form-control"
       id="toAirport"
+      required
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
-      [(ngModel)]="to" />
-    @if (flightSearchForm.controls['to']) {
-      <app-flight-validation-errors fieldLabel="To" [errors]="flightSearchForm.controls['to'].errors" />
+      [(ngModel)]="to"
+      [attr.aria-invalid]="!!hasToErrors"
+      [attr.aria-describedby]="hasToErrors ? 'toErrors' : null" />
+    @if (hasToErrors) {
+      <app-flight-validation-errors id="toErrors" fieldLabel="To" [errors]="flightSearchForm.controls['to'].errors" />
     }
   </div>
   <div class="form-group">
     <button
-      type="button"
+      type="submit"
       class="btn btn-default btn-spacing"
-      [disabled]="!to || !from || flightSearchForm.invalid || flightSearchForm.pending"
+      [disabled]="flightSearchForm.pending"
       (click)="onSearch()">
       Search
+    </button>
+    <button type="reset" class="btn btn-default" [disabled]="flightSearchForm.pending" (click)="onReset()">
+      Reset
     </button>
     @if (oldSchoolFlights.length > 0) {
       <button type="button" class="btn btn-default" (click)="onDelayFirstFlight()">Delay 1st Flight</button>

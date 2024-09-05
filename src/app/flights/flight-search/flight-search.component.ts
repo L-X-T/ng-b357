@@ -1,8 +1,9 @@
-import { Component, computed, DestroyRef, effect, ElementRef, inject, signal } from '@angular/core';
+import { Component, computed, DestroyRef, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 import { BehaviorSubject, filter, Observer } from 'rxjs';
 
@@ -50,11 +51,14 @@ export class FlightSearchComponent {
     5: true,
   };
 
+  private readonly flightSearchForm = viewChild.required<NgForm>('flightSearchForm');
+
   private readonly blinkService = inject(BlinkService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly doc = inject(DOCUMENT);
   private readonly elementRef = inject(ElementRef);
   private readonly flightService = inject(FlightService);
+  private readonly liveAnnouncer = inject(LiveAnnouncer);
   private readonly router = inject(Router);
 
   constructor() {
@@ -74,25 +78,28 @@ export class FlightSearchComponent {
   }
 
   protected onSearch(): void {
+    if (this.flightSearchForm()?.invalid) {
+      this.markFormGroupDirty(this.flightSearchForm());
+      return;
+    }
+
     // 1. my observable
     const flights$ = this.flightService.find(this.from, this.to);
 
     // 2. my observer
     const flightsObserver: Observer<Flight[]> = {
       next: (flights) => {
-        this.oldSchoolFlights = flights;
-        this.flightsSubject.next(flights);
-        this.flights.set(flights);
+        this.setFlights(flights);
         this.hasSearched = true;
         if (flights.length > 0) {
-          console.log('Found ' + flights.length + ' flights');
+          this.announceAndLog('Found ' + flights.length + ' flights');
         } else {
-          console.log('No flights found');
+          this.announceAndLog('No flights found');
         }
       },
       error: (errResp) => {
         this.hasSearched = true;
-        console.error('Error loading flights', errResp);
+        this.announceAndLog('Flights could not be loaded');
       },
       complete: () => {
         // console.log('flight$ completed');
@@ -101,6 +108,22 @@ export class FlightSearchComponent {
 
     // 3. my subscription
     flights$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(flightsObserver);
+  }
+
+  private setFlights(flights: Flight[]): void {
+    this.oldSchoolFlights = flights;
+    this.flightsSubject.next(flights);
+    this.flights.set(flights);
+  }
+
+  private announceAndLog(message: string): void {
+    this.liveAnnouncer.announce(message);
+    console.log(message);
+  }
+
+  protected onReset(): void {
+    this.setFlights([]);
+    this.hasSearched = false;
   }
 
   protected onDelayFirstFlight(): void {
@@ -114,6 +137,8 @@ export class FlightSearchComponent {
 
       // Immutable
       // ?
+
+      this.liveAnnouncer.announce('First flight delayed by 10 minutes');
     }
 
     // RxJS
@@ -151,5 +176,9 @@ export class FlightSearchComponent {
 
   protected blinkFirstChild(): void {
     this.blinkService.blinkElementsFirstChild(this.elementRef);
+  }
+
+  private markFormGroupDirty(formGroup: NgForm): void {
+    Object.values(formGroup.controls).forEach((control) => control.markAsDirty());
   }
 }
