@@ -1,9 +1,22 @@
-.logo-normal {
-  padding: 11px 0 8px;
-  all: unset;
+.simple-text,
+a {
+  outline-color: peru;
 }
 
-.simple-text,
-li a {
-  outline: none;
+a:hover {
+  text-decoration: none !important;
+}
+
+.logo-mini {
+  opacity: 1;
+  float: left;
+  width: 34px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 12px;
+}
+
+.logo-normal {
+  display: block;
+  padding-top: 11px !important;
 }

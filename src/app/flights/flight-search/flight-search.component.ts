@@ -1,9 +1,10 @@
 import { Component, DestroyRef, inject } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
-import { Observer } from 'rxjs';
+import { filter, Observer } from 'rxjs';
 
 import { pattern } from '../../shared/global';
 
@@ -38,6 +39,7 @@ export class FlightSearchComponent {
   };
 
   private readonly destroyRef = inject(DestroyRef);
+  private readonly doc = inject(DOCUMENT);
   private readonly flightService = inject(FlightService);
   private readonly router = inject(Router);
 
@@ -47,6 +49,12 @@ export class FlightSearchComponent {
     }
 
     // add focus management here
+    this.router.events.pipe(filter((e) => e instanceof NavigationEnd)).subscribe(() => {
+      const input = this.doc.querySelector('input');
+      if (input) {
+        input.focus();
+      }
+    });
   }
 
   onSearch(): void {
