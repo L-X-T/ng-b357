@@ -2,6 +2,7 @@ import { Component, DestroyRef, effect, inject, input, model } from '@angular/co
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Title } from '@angular/platform-browser';
 
 import { Observable } from 'rxjs';
 import { debounceTime, delay, distinctUntilChanged } from 'rxjs/operators';
@@ -21,6 +22,7 @@ export class FlightEditComponent {
   private readonly fb = inject(FormBuilder);
   private readonly flightService = inject(FlightService);
   private readonly router = inject(Router);
+  private readonly title = inject(Title);
 
   protected flight$?: Observable<Flight>;
   readonly flight = model<Flight>();
@@ -79,6 +81,7 @@ export class FlightEditComponent {
       },
     });
   });
+  private readonly titleEffect = effect(() => this.title.setTitle(`Edit Flight #${this.id()} - NG A11y`));
 
   constructor() {
     this.setupSubscriptions();
