@@ -1,9 +1,40 @@
-.logo-normal {
-  padding: 11px 0 8px;
-  all: unset;
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.875rem;
+  background: #f4f3ef; // same as main content
+  color: #2c2c2c; // same as main content
+  outline-color: peru;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  z-index: 1000;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
 }
 
 .simple-text,
-li a {
-  outline: none;
+a {
+  outline-color: peru;
+}
+
+a:hover {
+  text-decoration: none !important;
+}
+
+.logo-mini {
+  opacity: 1;
+  float: left;
+  width: 34px;
+  text-align: center;
+  margin-left: 10px;
+  margin-right: 12px;
+}
+
+.logo-normal {
+  display: block;
+  padding-top: 11px !important;
 }

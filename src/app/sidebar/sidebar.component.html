@@ -1,10 +1,15 @@
+<!-- Skip Link -->
+<button class="skip-link" type="button" (click)="onSkipToMainContent()">Skip to main content</button>
+
 <nav aria-label="sidebar including main navigation" class="sidebar-wrapper">
   <div class="logo">
-    <a class="simple-text logo-mini logo-image-small" routerLink="/home">
-      <img ngSrc="/angular_gradient_68x68.png" width="34" height="34" alt="NG a11y Home" />
-    </a>
+    <a routerLink="/home">
+      <span class="simple-text logo-mini logo-image-small">
+        <img ngSrc="/angular_gradient_68x68.png" width="34" height="34" alt="NG a11y Home" />
+      </span>
 
-    <a type="button" class="simple-text logo-normal" href="/home">NG a11y</a>
+      <span class="simple-text logo-normal">NG a11y</span>
+    </a>
   </div>
 
   <ul class="nav">
