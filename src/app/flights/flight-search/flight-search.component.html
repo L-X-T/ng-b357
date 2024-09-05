@@ -9,11 +9,11 @@
       autocomplete="false"
       name="from"
       class="form-control"
-      tabindex="2"
+      id="fromAirport"
+      [ngModelOptions]="{ updateOn: 'change' }"
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
-      [ngModelOptions]="{ updateOn: 'change' }"
       [(ngModel)]="from" />
     @if (flightSearchForm.controls['from']) {
       <app-flight-validation-errors fieldLabel="From" [errors]="flightSearchForm.controls['from'].errors" />
@@ -24,7 +24,7 @@
     <input
       name="to"
       class="form-control"
-      tabindex="1"
+      id="toAirport"
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
