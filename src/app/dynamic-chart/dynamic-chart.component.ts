@@ -35,3 +35,5 @@ export class DynamicChartComponent implements AfterViewInit {
     this.cdr.markForCheck();
   }
 }
+
+export default DynamicChartComponent;
