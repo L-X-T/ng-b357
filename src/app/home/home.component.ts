@@ -8,3 +8,5 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './home.component.scss',
 })
 export class HomeComponent {}
+
+export default HomeComponent;
