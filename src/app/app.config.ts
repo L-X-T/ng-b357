@@ -2,7 +2,7 @@ import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideImageKitLoader } from '@angular/common';
 import { provideRouter, withPreloading } from '@angular/router';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay, withIncrementalHydration } from '@angular/platform-browser';
 
 import { quicklinkProviders, QuicklinkStrategy } from 'ngx-quicklink';
 
@@ -22,6 +22,6 @@ export const appConfig: ApplicationConfig = {
       // withPreloading(NoPreloading),
     ),
     quicklinkProviders,
-    provideClientHydration(withEventReplay()),
+    provideClientHydration(withEventReplay(), withIncrementalHydration()),
   ],
 };
