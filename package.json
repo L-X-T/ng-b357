@@ -22,7 +22,8 @@
     "wba": "npx webpack-bundle-analyzer dist/ng-b357/stats.json",
     "igv": "npx @rx-angular/import-graph-visualizer --entry-points src/main.ts --ts-config tsconfig.app.json",
     "dpdm": "npx dpdm --no-warning --no-tree src/main.ts",
-    "ng:update": "ng update @angular/cli @angular/core @angular/material angular-eslint"
+    "ng:update": "ng update @angular/cli @angular/core @angular/material angular-eslint",
+    "serve:ssr:ng-b357": "node dist/ng-b357/server/server.mjs"
   },
   "private": true,
   "dependencies": {
