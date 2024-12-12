@@ -29,7 +29,7 @@ Before we start we please **add** the following **extensions** for your browser:
 - [**WAVE**](https://chromewebstore.google.com/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh) Chrome extension
 - [Accessibility Insights](https://chromewebstore.google.com/detail/accessibility-insights-fo/pbjjkligggfmakdaogkfomddhfmpjeni) (optional, for automated testing)
 - [axe DevTools](https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd) (optional, for automated testing)
-- [HeadingsMap](https://chromewebstore.googe.com/detail/headingsmap/flbjommegcjonpdmenkdiocclhjacmbi) (optional, for headings structure)
+- [HeadingsMap](https://chromewebstore.google.com/detail/headingsmap/flbjommegcjonpdmenkdiocclhjacmbi) (optional, for headings structure)
 - [Color Contrast Analyzer](https://chromewebstore.google.com/detail/color-contrast-analyzer/dagdlcijhfbmgkjokkjicnnfimlebcll) (optional, for color contrast)
 
 You may need to restart your browser now, to see the just added extensions.
