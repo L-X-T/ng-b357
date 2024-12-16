@@ -15,6 +15,7 @@
     "caddy:stop": "caddy stop",
     "build:sme": "ng b --source-map && npm run sme",
     "sme": "npx source-map-explorer dist/ng-b357/browser/**/*.js --no-border-checks",
+    "sme:html": "npx source-map-explorer dist/ng-b357/browser/**/*.js --no-border-checks --only-mapped --html > ./dist/output.html",
     "build:vbv": "ng b --stats-json && npm run vbv",
     "vbv": "cd dist/ng-b357/browser && npx vite-bundle-visualizer && cd ../../..",
     "build:wba": "ng b --stats-json && npm run wba",
