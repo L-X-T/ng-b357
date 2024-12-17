@@ -38,16 +38,14 @@
   <div class="form-group">
     <button
       type="button"
-      class="btn btn-default"
+      class="btn btn-default btn-spacing"
       [disabled]="!to || !from || flightSearchForm.invalid || flightSearchForm.pending"
       (click)="onSearch()"
     >
       Search
     </button>
     @if (oldSchoolFlights.length > 0) {
-      <button type="button" class="btn btn-default" style="margin-left: 10px" (click)="onDelayFirstFlight()">
-        Delay 1st Flight
-      </button>
+      <button type="button" class="btn btn-default" (click)="onDelayFirstFlight()">Delay 1st Flight</button>
     }
   </div>
 </form>
@@ -58,13 +56,11 @@
     @for (flight of oldSchoolFlights; track flight.id) {
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <app-flight-card [item]="flight" [selected]="basket[flight.id]">
-          <button type="button" class="btn btn-default" (click)="basket[flight.id] = !basket[flight.id]">
+          <button type="button" class="btn btn-default btn-spacing" (click)="basket[flight.id] = !basket[flight.id]">
             {{ basket[flight.id] ? 'Rem.' : 'Add' }}
           </button>
 
-          <button type="button" class="btn btn-default" style="margin: 0 10px" (click)="onEditFlight(flight.id)">
-            Edit
-          </button>
+          <button type="button" class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</button>
 
           <app-flight-status-toggle [(status)]="flight.delayed" />
         </app-flight-card>
@@ -81,13 +77,11 @@
     @for (flight of flightsSubject | async; track flight.id) {
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <app-flight-card [item]="flight" [selected]="basket[flight.id]">
-          <button type="button" class="btn btn-default" (click)="basket[flight.id] = !basket[flight.id]">
+          <button type="button" class="btn btn-default btn-spacing" (click)="basket[flight.id] = !basket[flight.id]">
             {{ basket[flight.id] ? 'Rem.' : 'Add' }}
           </button>
 
-          <button type="button" class="btn btn-default" style="margin: 0 10px" (click)="onEditFlight(flight.id)">
-            Edit
-          </button>
+          <button type="button" class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</button>
 
           <app-flight-status-toggle [(status)]="flight.delayed" />
         </app-flight-card>
@@ -104,13 +98,11 @@
     @for (flight of flights(); track flight.id) {
       <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <app-flight-card [item]="flight" [selected]="basket[flight.id]">
-          <button type="button" class="btn btn-default" (click)="basket[flight.id] = !basket[flight.id]">
+          <button type="button" class="btn btn-default btn-spacing" (click)="basket[flight.id] = !basket[flight.id]">
             {{ basket[flight.id] ? 'Rem.' : 'Add' }}
           </button>
 
-          <button type="button" class="btn btn-default" style="margin: 0 10px" (click)="onEditFlight(flight.id)">
-            Edit
-          </button>
+          <button type="button" class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</button>
 
           <app-flight-status-toggle [(status)]="flight.delayed" />
         </app-flight-card>
