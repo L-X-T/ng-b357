@@ -5,15 +5,15 @@
 - [Improving Initial Load NgOptimizedImage](#improving-initial-load-ngoptimizedimage)
   - [Use a responsive image loading provider](#use-a-responsive-image-loading-provider)
   - [Bonus: Use a preconnect tag](#bonus-use-a-preconnect-tag)
-- [Improving Initial Load with NG Prod Mode](#improving-initial-load-with-ng-prod-mode)
-  - [Inspecting source files with source-map-explorer](#inspecting-source-files-with-source-map-explorer)
-  - [Bonus: Inspecting Bundles](#bonus-inspecting-bundles)
-- [Avoid large 3rd party deps \*](#avoid-large-3rd-party-deps-)
+- [Avoid large 3rd party deps](#avoid-large-3rd-party-deps-)
   - [Replace moment with a Date Pipe](#replace-moment-with-a-date-pipe)
   - [Check your own build for large parts of 3rd party code](#check-your-own-build-for-large-parts-of-3rd-party-code)
-  <!-- TOC -->
+- [Bonus: Improving Initial Load with NG Prod Mode](#bonus-improving-initial-load-with-ng-prod-mode)
+- [Bonus: Inspecting source files with source-map-explorer](#bonus-inspecting-source-files-with-source-map-explorer)
+- [Bonus: Inspecting bundles with webpack-bundle-analyzer](#bonus-inspecting-bundles-with-webpack-bundle-analyzer)
+<!-- TOC -->
 
-In this lab we will work with the Angular App of this repository / workspace. Of course, you could also apply the same optimizations to your own Apps if you prefer to do that.
+In this lab, we will focus on optimizing the assets and the build of our Angular App.
 
 ## Improving Initial Load NgOptimizedImage
 
@@ -77,7 +77,9 @@ You can find the documentation here: [NgOptimizedImage image loaders](https://an
    [...]
    ```
 
-5. As the final optimization we can add the desired `ngSrcset` widths and sizes controlling the responsive image sizes (resolutions):
+   Note: You'll need to remove the path of the image in the `ngSrc` attribute.
+
+5. As the final optimization we can add the desired `ngSrcset` widths and sizes controlling the responsive image `sizes` (resolutions):
 
    ```html
    [...]
@@ -85,8 +87,8 @@ You can find the documentation here: [NgOptimizedImage image loaders](https://an
      width="2596"
      height="1890"
      ngSrc="grimming_from_glaeserkoppe.jpg"
-     ngSrcset="324w, 649w, 1298w, 1947w, 2596w"
-     sizes="(max-width:991px) 98vw, 88vw"
+     ngSrcset="320w, 640w, 960w, 1280w, 1600w, 2320w"
+     sizes="(max-width:991px) calc(100vw - 60px), calc(100vw - 320px)"
      alt="Photo showing Grimming from the Gläserkoppe"
      priority
    />
@@ -98,7 +100,12 @@ You can find the documentation here: [NgOptimizedImage image loaders](https://an
 
    ```html
    [...]
-   <img [...] ngSrcset="320w, 640w, 914w" sizes="(max-width:991px) 48vw, 38vw" [...] />
+   <img
+     [...]
+     ngSrcset="320w, 640w, 960w, 1280w"
+     sizes="(max-width:991px) calc(50vw - 30px), calc(50vw - 160px)"
+     [...]
+   />
 
    [...]
    ```
@@ -109,7 +116,7 @@ You can find the documentation here: [NgOptimizedImage image loaders](https://an
 
 ### Bonus: Use a preconnect tag
 
-Check your browsers console for a warning concerning a missing preconnect tag. You should add the tag to the index.html.
+Check your browser console for a warning concerning a missing preconnect tag. You should add the tag to the index.html.
 
 ```html
 [...]
@@ -117,81 +124,7 @@ Check your browsers console for a warning concerning a missing preconnect tag. Y
 [...]
 ```
 
-## Improving Initial Load with NG Prod Mode
-
-1. Make sure, your solution runs in debug mode (`ng s -o`)
-2. Open the performance tab in Chrome's dev tools and reload the app. Find out how long bootstrapping takes and create a screenshot.
-
-   **Hint:** In order to respect the cache, do it twice and take the screenshot after the 2nd try.
-
-3. Install the simple web server serve:
-   ```
-   npm i serve -g
-   ```
-4. Switch to the console and move to the root folder of your project. Create a production build:
-   ```
-   ng b
-   ```
-5. Start live-server for your production build. For this, switch to your project within the `dist` folder and call serve:
-   ```
-   serve -s
-   ```
-6. Open the performance tab in Chrome's dev tools and reload the app. Find out how long bootstrapping takes and create a screenshot.
-
-   **Hint:** In order to respect the cache, do it twice and take the screenshot after the 2nd try.
-
-7. Compare your screenshot with the performance results.
-
-### Inspecting source files with source-map-explorer
-
-Now let's try the `source-map-explorer` as an alternative to `webpack-bundle-analyzer`. With the `source-map-explorer` you look into single files instead of the bundle.
-
-```
-npm i -g source-map-explorer
-```
-
-To be able to explore the .js files you need source maps to be enabled in your `angular.json` or to pass the `--source-map` flag to `ng build`.
-
-After creating the source maps open the main bundle (main.js) and explore it with the `source-map-explorer`.
-
-Results tend to be more accurate here compared to the `webpack-bundle-analyzer` or the `vite-bundle-visualizer`.
-
-### Bonus: Inspecting Bundles
-
-Using the webpack-bundle-analyzer one can have a look at a bundle's content. In this exercise you will use this possibility by inspecting your AOT-based and your AOT-less production build.
-
-1. Install the `webpack-bundle-analyzer` globally (for the sake of simplicity):
-   ```
-   npm i -g webpack
-   npm i -g webpack-bundle-analyzer
-   ```
-2. Move to the root folder of your project. Create a Production Build without AOT and generate a statistics file for the analyzer using the `stats-json` flag:
-   ```
-   ng b --aot=false --build-optimizer=false --stats-json
-   ```
-3. Analyze your bundles:
-
-   ```
-   npx webpack-bundle-analyzer dist/ng-p3rf/stats.json
-   ```
-
-   ```
-   npx webpack-bundle-analyzer dist/ng-p3rf/stats.json
-   ```
-
-   The name of `stats.json` can be slightly different on your machine, e. g. `stats-es5.json` or `stats-es2015.json`.
-
-4. Take a screenshot to document this.
-5. Move to the root folder of your project. Create a production build using AOT:
-   ```
-   ng b --stats-json
-   ```
-6. Analyze these bundles too and compare it to the former bundles:
-   ```
-   webpack-bundle-analyzer dist/ng-p3rf/stats.json
-   ```
-
-## Avoid large 3rd party deps \*
+## Avoid large 3rd party deps
 
 ### Replace moment with a Date Pipe
 
@@ -225,3 +158,77 @@ You can either use `webpack-bundle-analyzer` or `source-map-explorer` for this t
 2. Make sure the new 3rd party lib has **ES6 imports** and this is **tree-shakeable**.
 
 3. Compare the production build size and check how much smaller your build has become.
+
+## Bonus: Improving Initial Load with NG Prod Mode
+
+1. Make sure, your solution runs in debug mode (`ng s -o`)
+2. Open the performance tab in Chrome's dev tools and reload the app. Find out how long bootstrapping takes and create a screenshot.
+
+   **Hint:** In order to respect the cache, do it twice and take the screenshot after the 2nd try.
+
+3. Install the simple web server serve:
+   ```
+   npm i serve -g
+   ```
+4. Switch to the console and move to the root folder of your project. Create a production build:
+   ```
+   ng b
+   ```
+5. Start live-server for your production build. For this, switch to your project within the `dist` folder and call serve:
+   ```
+   serve -s
+   ```
+6. Open the performance tab in Chrome's dev tools and reload the app. Find out how long bootstrapping takes and create a screenshot.
+
+   **Hint:** In order to respect the cache, do it twice and take the screenshot after the 2nd try.
+
+7. Compare your screenshot with the performance results.
+
+### Bonus: Inspecting source files with source-map-explorer
+
+Now let's try the `source-map-explorer` as an alternative to `webpack-bundle-analyzer`. With the `source-map-explorer` you look into single files instead of the bundle.
+
+```
+npm i -g source-map-explorer
+```
+
+To be able to explore the .js files you need source maps to be enabled in your `angular.json` or to pass the `--source-map` flag to `ng build`.
+
+After creating the source maps open the main bundle (main.js) and explore it with the `source-map-explorer`.
+
+Results tend to be more accurate here compared to the `webpack-bundle-analyzer` or the `vite-bundle-visualizer`.
+
+### Bonus: Inspecting bundles with webpack-bundle-analyzer
+
+Using the webpack-bundle-analyzer one can have a look at a bundle's content. In this exercise, you will use this possibility by inspecting your AOT-based and your AOT-less production build.
+
+1. Install the `webpack-bundle-analyzer` globally (for the sake of simplicity):
+   ```
+   npm i -g webpack
+   npm i -g webpack-bundle-analyzer
+   ```
+2. Move to the root folder of your project. Create a Production Build without AOT and generate a statistics file for the analyzer using the `stats-json` flag:
+   ```
+   ng b --aot=false --build-optimizer=false --stats-json
+   ```
+3. Analyze your bundles:
+
+   ```
+   npx webpack-bundle-analyzer dist/ng-p3rf/stats.json
+   ```
+
+   ```
+   npx webpack-bundle-analyzer dist/ng-p3rf/stats.json
+   ```
+
+   The name of `stats.json` can be slightly different on your machine, e. g. `stats-es5.json` or `stats-es2015.json`.
+
+4. Take a screenshot to document this.
+5. Move to the root folder of your project. Create a production build using AOT:
+   ```
+   ng b --stats-json
+   ```
+6. Analyze these bundles too and compare it to the former bundles:
+   ```
+   webpack-bundle-analyzer dist/ng-p3rf/stats.json
+   ```
