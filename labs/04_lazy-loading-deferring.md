@@ -341,7 +341,7 @@ Please note: Dynamically loaded parts will not be preloaded.
 
 ## Bonus: Implementing a Custom Preloading Strategy \*\*
 
-1. [Here](https://www.angulararchitects.io/aktuelles/performanceoptimierung/) you find some information about creating a custom preloading strategy. Have a look at it.
+1. [Here](https://www.angulararchitects.io/blog/optimizing-performance/) you find some information about creating a custom preloading strategy. Have a look at it.
 
 2. Create a custom preloading strategy that only preloads modules that have been marked with the `data` attribute in the router configuration.
 
