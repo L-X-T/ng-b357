@@ -29,10 +29,10 @@ Try resubmitting the same search again and interpret your findings.
 
    `npm i @angular/cdk` or `yarn @angular/cdk` or `pnpm i @angular/cdk`
 
-2. Now we need to import the `CdkFixedSizeVirtualScroll`, `CdkVirtualForOf` and `CdkVirtualScrollViewport` into the `ChartsComponent`:
+2. Now we need to import the `ScrollingModule` into the `ChartsComponent`:
 
    ```typescript
-   imports: [ChartComponent, CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport],
+   imports: [ChartComponent, ScrollingModule],
    ```
 
 3. Also, in the `charts.component.ts` we want to change the count of charts from 8 to something bigger. We also need to adjust the data structure to have 4 columns in the chart rows. Here is an example of how to do this:
