@@ -3,9 +3,10 @@
 <!-- TOC -->
 
 - [Improving Data Binding Performance with OnPush](#improving-data-binding-performance-with-onpush)
-  - [Bonus: Search for Change Detection cycles in you own project](#bonus-search-for-change-detection-cycles-in-you-own-project)
+  - [Bonus: Debug Change Detection cycles using lifecycle or render hooks](#bonus-debug-change-detection-cycles-using-lifecycle-or-render-hooks)
+  - [Bonus: Search for Change Detection cycles in your own project](#bonus-search-for-change-detection-cycles-in-your-own-project)
 - [Zone Pollution by 3rd party lib](#zone-pollution-by-3rd-party-lib)
-  - [Bonus: Search for Zone Pollution in you own project](#bonus-search-for-zone-pollution-in-you-own-project)
+  - [Bonus: Search for Zone Pollution in your own project](#bonus-search-for-zone-pollution-in-your-own-project)
   <!-- TOC -->
 
 ## Improving Data Binding Performance with OnPush
@@ -125,7 +126,35 @@
 
 8. Make sure your implementation works. Switch to the browser and search for flights again. Click `Delay 1st Flight` one more time and find out that Angular is just checking and updating the first flight card.
 
-### Bonus: Search for Change Detection cycles in you own project
+### Bonus: Debug Change Detection cycles using lifecycle or render hooks
+
+1. Open a component and add render or lifecycle hooks to debug the change detection cycles.
+
+   ```typescript
+   constructor() {
+     afterRender(() => {
+       console.log('afterRender');
+     });
+
+     afterNextRender(() => {
+       console.log('afterNextRender');
+     });
+   }
+
+   ngDoCheck(): void {
+     console.log('ngDoCheck');
+   }
+
+   ngAfterContentChecked(): void {
+     console.log('ngAfterContentChecked');
+   }
+
+   ngAfterViewChecked(): void {
+     console.log('ngAfterViewChecked');
+   }
+   ```
+
+### Bonus: Search for Change Detection cycles in your own project
 
 Open an Angular workspace of your own work and use the same blink() method to search for unnecessary change detection cycles in your App. Alternatively you can use the Angular DevTools Profiler.
 
@@ -163,7 +192,7 @@ If you find something try to fix it with `ChangeDetectionStrategy.OnPush`. See i
 
 You might need to inject `ngZone` here as well.
 
-### Bonus: Search for Zone Pollution in you own project
+### Bonus: Search for Zone Pollution in your own project
 
 1. Open an Angular workspace of your own work and use the same blink() method to search for zone pollution in your App. Alternatively you can use the Angular DevTools Profiler.
 
