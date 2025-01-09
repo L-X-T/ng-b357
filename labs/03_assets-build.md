@@ -197,38 +197,3 @@ To be able to explore the .js files you need source maps to be enabled in your `
 After creating the source maps open the main bundle (main.js) and explore it with the `source-map-explorer`.
 
 Results tend to be more accurate here compared to the `webpack-bundle-analyzer` or the `vite-bundle-visualizer`.
-
-### Bonus: Inspecting bundles with webpack-bundle-analyzer
-
-Using the webpack-bundle-analyzer one can have a look at a bundle's content. In this exercise, you will use this possibility by inspecting your AOT-based and your AOT-less production build.
-
-1. Install the `webpack-bundle-analyzer` globally (for the sake of simplicity):
-   ```
-   npm i -g webpack
-   npm i -g webpack-bundle-analyzer
-   ```
-2. Move to the root folder of your project. Create a Production Build without AOT and generate a statistics file for the analyzer using the `stats-json` flag:
-   ```
-   ng b --aot=false --build-optimizer=false --stats-json
-   ```
-3. Analyze your bundles:
-
-   ```
-   npx webpack-bundle-analyzer dist/ng-p3rf/stats.json
-   ```
-
-   ```
-   npx webpack-bundle-analyzer dist/ng-p3rf/stats.json
-   ```
-
-   The name of `stats.json` can be slightly different on your machine, e. g. `stats-es5.json` or `stats-es2015.json`.
-
-4. Take a screenshot to document this.
-5. Move to the root folder of your project. Create a production build using AOT:
-   ```
-   ng b --stats-json
-   ```
-6. Analyze these bundles too and compare it to the former bundles:
-   ```
-   webpack-bundle-analyzer dist/ng-p3rf/stats.json
-   ```
