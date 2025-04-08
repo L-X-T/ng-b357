@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, OnChanges, OnDestroy, OnInit, input } from '@angular/core';
 
 import moment from 'moment';
 
@@ -16,8 +16,8 @@ import { BlinkService } from '../../shared/blink.service';
 export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
   private readonly debug = false;
 
-  @Input({ required: true }) item!: Flight;
-  @Input() selected = false;
+  readonly item = input.required<Flight>();
+  readonly selected = input(false);
 
   private readonly blinkService = inject(BlinkService);
   private readonly elementRef = inject(ElementRef);
@@ -25,24 +25,24 @@ export class FlightCardComponent implements OnChanges, OnInit, OnDestroy {
   ngOnChanges(): void {
     if (this.debug) {
       console.warn('[FlightCardComponent - ngOnChanges()]');
-      console.log(this.item);
-      console.log('selected: ' + this.selected);
+      console.log(this.item());
+      console.log('selected: ' + this.selected());
     }
   }
 
   ngOnInit(): void {
     if (this.debug) {
       console.warn('[FlightCardComponent - ngOnInit()]');
-      console.log(this.item);
-      console.log('selected: ' + this.selected);
+      console.log(this.item());
+      console.log('selected: ' + this.selected());
     }
   }
 
   ngOnDestroy(): void {
     if (this.debug) {
       console.warn('[FlightCardComponent - ngOnDestroy()]');
-      console.log(this.item);
-      console.log('selected: ' + this.selected);
+      console.log(this.item());
+      console.log('selected: ' + this.selected());
     }
   }
 

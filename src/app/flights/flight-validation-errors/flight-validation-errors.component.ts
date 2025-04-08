@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,6 @@ import { ValidationErrors } from '@angular/forms';
   styleUrl: './flight-validation-errors.component.scss',
 })
 export class FlightValidationErrorsComponent {
-  @Input({ required: true }) errors: ValidationErrors | null = null;
-  @Input() fieldLabel = 'Field';
+  readonly errors = input.required<ValidationErrors | null>();
+  readonly fieldLabel = input('Field');
 }

@@ -6,7 +6,7 @@
   <p>Id: {{ id }}</p>
   <p>ShowDetails: {{ showDetails }}</p>
 
-  @if (editForm && flight) {
+  @if (editForm && flight()) {
     <form [formGroup]="editForm">
       <div class="form-group">
         <label for="id">Id (*)</label>

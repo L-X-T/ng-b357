@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, inject, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, inject, OnDestroy, OnInit, input, viewChild } from '@angular/core';
 
 import { ChartsDataService } from './charts-data.service';
 import { BlinkService } from '../../shared/blink.service';
@@ -12,10 +12,10 @@ import 'anychart';
   // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() id = 0;
-  @Input() data = 'data1';
+  readonly id = input(0);
+  readonly data = input('data1');
 
-  @ViewChild('container') container?: ElementRef;
+  readonly container = viewChild<ElementRef>('container');
 
   private chart?: anychart.charts.Pie | null;
 
@@ -25,12 +25,13 @@ export class ChartComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     // Default data set mapping, hardcoded here.
-    this.chart = anychart.pie(this.chartsDataService.getData(this.data));
+    this.chart = anychart.pie(this.chartsDataService.getData(this.data()));
   }
 
   ngAfterViewInit(): void {
-    if (this.chart && this.container) {
-      this.chart.container(this.container.nativeElement);
+    const container = this.container();
+    if (this.chart && container) {
+      this.chart.container(container.nativeElement);
       this.chart.draw();
     }
   }
