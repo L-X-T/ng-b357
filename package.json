@@ -10,7 +10,7 @@
     "lint": "ng lint",
     "reset": "rm -rf node_modules && rm -f package-lock.json && pnpm i",
     "build:serve": "ng build && serve dist/ng-b357/browser -s",
-    "serve": "serve dist/ng-b357/browser -s",
+    "serve": "npx serve dist/ng-b357/browser -s",
     "caddy": "caddy start",
     "caddy:stop": "caddy stop",
     "build:sme": "ng b --source-map && npm run sme",
