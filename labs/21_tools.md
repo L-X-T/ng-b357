@@ -30,7 +30,6 @@ Before we start we please **add** the following **extensions** for your browser:
 - [Accessibility Insights](https://chromewebstore.google.com/detail/accessibility-insights-fo/pbjjkligggfmakdaogkfomddhfmpjeni) (optional, for automated testing)
 - [axe DevTools](https://chrome.google.com/webstore/detail/axe-devtools-web-accessib/lhdoppojpmngadmnindnejefpokejbdd) (optional, for automated testing)
 - [HeadingsMap](https://chromewebstore.google.com/detail/headingsmap/flbjommegcjonpdmenkdiocclhjacmbi) (optional, for heading structure)
-- [Color Contrast Analyzer](https://chromewebstore.google.com/detail/color-contrast-analyzer/dagdlcijhfbmgkjokkjicnnfimlebcll) (optional, for color contrast)
 
 You may need to restart your browser now to see the just added extensions.
 
@@ -54,17 +53,20 @@ To manually test accessibility in this course, you primarily navigate through yo
 
 You can use any one this screen readers:
 
-- [**NVDA**](https://nvda.bhvd.de) (Windows, free download)
+- [**NVDA**](https://nvda.bhvd.de) (Windows, free, okay)
+- [Narrator](https://support.microsoft.com/en-us/windows/complete-guide-to-narrator-e4397a0d-ef4f-b386-d8ae-c172f109bdb1) (Windows, built-in, bad)
+- Jaws (Windows, paid, better)
 - [**Voice Over**](https://en.wikipedia.org/wiki/VoiceOver) (Mac/iOS, built-in)
-- [**Orca**](https://www.a11yproject.com/posts/getting-started-with-orca/) (Linux, free)
 - [**Talkback**](https://support.google.com/accessibility/android/answer/6283677?hl=en&sjid=14818511639127973246-EU) (Android, built-in)
-- [Narrator](https://support.microsoft.com/en-us/windows/complete-guide-to-narrator-e4397a0d-ef4f-b386-d8ae-c172f109bdb1) (Windows, built-in)
-- Jaws (Windows, expansive)
-- [Read Aloud](https://chromewebstore.google.com/detail/read-aloud-a-text-to-spee/hdhinadidafjejdhmfkjgnolgimiaplp) Chrome Extension
+- [**Orca**](https://www.a11yproject.com/posts/getting-started-with-orca/) (Linux, free)
 
 Practice by turning on the screen reader (on windows download and install NVDA first) and navigating the screen.
 
 In the workshop, you primarily test issues manually, and use automated tools to assist in checking specific automatable features.
+
+#### Other tools
+
+- [whocanuse.com](https://www.whocanuse.com) Website for color contrasts
 
 ### Setup: Automated testing
 
