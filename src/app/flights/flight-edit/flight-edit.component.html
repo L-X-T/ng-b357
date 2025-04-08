@@ -3,8 +3,8 @@
 </div>
 
 <div class="container">
-  <p>Id: {{ id }}</p>
-  <p>ShowDetails: {{ showDetails }}</p>
+  <p>Id: {{ id() }}</p>
+  <p>ShowDetails: {{ showDetails() }}</p>
 
   @if (editForm && flight()) {
     <form [formGroup]="editForm">
