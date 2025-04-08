@@ -47,7 +47,6 @@ module.exports = tseslint.config(
       '@typescript-eslint/no-empty-function': 'warn',
       '@typescript-eslint/no-empty-interface': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
-      '@typescript-eslint/no-implicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': 'off',
       'max-len': [
         'warn',
