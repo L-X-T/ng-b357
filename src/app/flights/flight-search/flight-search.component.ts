@@ -79,7 +79,7 @@ export class FlightSearchComponent {
 
   protected onSearch(): void {
     if (this.flightSearchForm()?.invalid) {
-      this.markFormGroupDirty(this.flightSearchForm());
+      this.markFormGroupTouched(this.flightSearchForm());
       return;
     }
 
@@ -182,7 +182,7 @@ export class FlightSearchComponent {
     this.blinkService.blinkElementsFirstChild(this.elementRef);
   }
 
-  private markFormGroupDirty(formGroup: NgForm): void {
-    Object.values(formGroup.controls).forEach((control) => control.markAsDirty());
+  private markFormGroupTouched(formGroup: NgForm): void {
+    Object.values(formGroup.controls).forEach((control) => control.markAsTouched());
   }
 }
