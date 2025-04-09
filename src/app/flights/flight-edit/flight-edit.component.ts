@@ -1,6 +1,6 @@
-import { Component, effect, inject, input, model } from '@angular/core';
+import { Component, DestroyRef, effect, inject, input, model } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Title } from '@angular/platform-browser';
 
@@ -18,9 +18,9 @@ import { Flight } from '../../entities/flight';
   templateUrl: './flight-edit.component.html',
 })
 export class FlightEditComponent {
+  private readonly destroyRef = inject(DestroyRef);
   private readonly fb = inject(FormBuilder);
   private readonly flightService = inject(FlightService);
-  private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly title = inject(Title);
 
@@ -28,7 +28,8 @@ export class FlightEditComponent {
   readonly flight = model<Flight>();
 
   readonly id = input<number>();
-  readonly showDetails = input<boolean>(false);
+  readonly showDetails = input(false);
+
   protected message = '';
   protected pattern = pattern;
   protected editForm = this.fb.group({
@@ -66,7 +67,7 @@ export class FlightEditComponent {
   private readonly flightInputEffect = effect(() => this.patchFormValue(this.flight() as Flight));
   private readonly flightParamEffect = effect(() => {
     this.flight$ = this.flightService.findById('' + this.id());
-    this.flight$.pipe(takeUntilDestroyed()).subscribe({
+    this.flight$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: (flight) => {
         this.flight.set(flight);
         this.patchFormValue(flight);
