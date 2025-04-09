@@ -15,6 +15,7 @@ export const appRoutes: Route[] = [
   {
     path: 'home',
     component: HomeComponent,
+    title: 'Home',
   },
 
   {

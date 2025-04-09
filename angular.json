@@ -110,6 +110,17 @@
           "options": {
             "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
+        },
+        "e2e": {
+          "builder": "playwright-ng-schematics:playwright",
+          "options": {
+            "devServerTarget": "ng-b357:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "ng-b357:serve:production"
+            }
+          }
         }
       }
     }

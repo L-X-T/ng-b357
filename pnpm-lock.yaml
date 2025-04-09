@@ -50,6 +50,9 @@ importers:
       '@angular/ssr':
         specifier: ^19.2.6
         version: 19.2.6(b63f73fb574467a09361b2db3260d156)
+      '@axe-core/playwright':
+        specifier: ^4.10.1
+        version: 4.10.1(playwright-core@1.51.1)
       '@jsverse/transloco':
         specifier: ^7.6.1
         version: 7.6.1(@angular/core@19.2.5(rxjs@7.8.2)(zone.js@0.15.0))(typescript@5.7.3)
@@ -84,6 +87,9 @@ importers:
       '@angular/compiler-cli':
         specifier: ^19.2.5
         version: 19.2.5(@angular/compiler@19.2.5)(typescript@5.7.3)
+      '@playwright/test':
+        specifier: 1.51.1
+        version: 1.51.1
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.1
@@ -123,6 +129,9 @@ importers:
       karma-jasmine-html-reporter:
         specifier: ~2.1.0
         version: 2.1.0(jasmine-core@5.6.0)(karma-jasmine@5.1.0(karma@6.4.4))(karma@6.4.4)
+      playwright-ng-schematics:
+        specifier: 2.0.2
+        version: 2.0.2(@angular-devkit/architect@0.1902.6(chokidar@4.0.1))(@angular-devkit/core@19.2.6(chokidar@4.0.1))(@angular-devkit/schematics@19.2.6(chokidar@4.0.1))
       prettier:
         specifier: ^3.5.3
         version: 3.5.3
@@ -433,6 +442,11 @@ packages:
     peerDependenciesMeta:
       '@angular/platform-server':
         optional: true
+
+  '@axe-core/playwright@4.10.1':
+    resolution: {integrity: sha512-EV5t39VV68kuAfMKqb/RL+YjYKhfuGim9rgIaQ6Vntb2HgaCaau0h98Y3WEUqW1+PbdzxDtDNjFAipbtZuBmEA==}
+    peerDependencies:
+      playwright-core: '>= 1.0.0'
 
   '@babel/code-frame@7.26.2':
     resolution: {integrity: sha512-RJlIHRueQgwWitWgF8OdFYGZX328Ax5BCemNGlqHfplnRT9ESi8JkFlvaVYbS+UubVY6dpv87Fs2u5M29iNFVQ==}
@@ -1712,6 +1726,11 @@ packages:
     resolution: {integrity: sha512-VzgHzGblFmUeBmmrk55zPyrQIArQN4vujc9shWytaPdB3P7qhi0cpaiKIr7tlCmFv2lYUwnLospIqjL9ZSAhhg==}
     engines: {node: ^12.20.0 || ^14.18.0 || >=16.0.0}
 
+  '@playwright/test@1.51.1':
+    resolution: {integrity: sha512-nM+kEaTSAoVlXmMPH10017vn3FSiFqr/bh4fKg9vmAdMfd9SDqRZNvPSiAHADc/itWak+qPvMPZQOPwCBW7k7Q==}
+    engines: {node: '>=18'}
+    hasBin: true
+
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
@@ -2192,6 +2211,10 @@ packages:
     hasBin: true
     peerDependencies:
       postcss: ^8.1.0
+
+  axe-core@4.10.3:
+    resolution: {integrity: sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==}
+    engines: {node: '>=4'}
 
   axobject-query@4.1.0:
     resolution: {integrity: sha512-qIj0G9wZbMGNLjLmg1PT6v2mE9AH2zlnADJD/2tC6E00hgmhUOfEB6greHPAfLRSufHqROIUTkw6E+M3lH0PTQ==}
@@ -2951,6 +2974,11 @@ packages:
 
   fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
+
+  fsevents@2.3.2:
+    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -3979,6 +4007,23 @@ packages:
   pkg-dir@7.0.0:
     resolution: {integrity: sha512-Ie9z/WINcxxLp27BKOCHGde4ITq9UklYKDzVo1nhk5sqGEXU3FpkwP5GM2voTGJkGd9B3Otl+Q4uwSOeSUtOBA==}
     engines: {node: '>=14.16'}
+
+  playwright-core@1.51.1:
+    resolution: {integrity: sha512-/crRMj8+j/Nq5s8QcvegseuyeZPxpQCZb6HNk3Sos3BlZyAknRjoyJPFWkpNn8v0+P3WiwqFF8P+zQo4eqiNuw==}
+    engines: {node: '>=18'}
+    hasBin: true
+
+  playwright-ng-schematics@2.0.2:
+    resolution: {integrity: sha512-iffEY/F7nFqA0sKCpEs8hBoitVPAzKj/h0ompWjtBemE8EblfUNPqDka06wJ51yzLbXLc2FR1IXdE0XbMaX74g==}
+    peerDependencies:
+      '@angular-devkit/architect': '>= 0.1900.0 < 0.2000.0'
+      '@angular-devkit/core': ^19.0.0
+      '@angular-devkit/schematics': ^19.0.0
+
+  playwright@1.51.1:
+    resolution: {integrity: sha512-kkx+MB2KQRkyxjYPc3a0wLZZoDczmppyGJIvQ43l+aZihkaVvmu/21kiyaHeHjiFxjxNNFnUncKmcGIyOojsaw==}
+    engines: {node: '>=18'}
+    hasBin: true
 
   postcss-loader@8.1.1:
     resolution: {integrity: sha512-0IeqyAsG6tYiDRCYKQJLAmgQr47DX6N7sFSWvQxt6AcupX8DIdmykuk/o/tx0Lze3ErGHJEp5OSRxrelC6+NdQ==}
@@ -5380,6 +5425,11 @@ snapshots:
     optionalDependencies:
       '@angular/platform-server': 19.2.5(@angular/common@19.2.5(@angular/core@19.2.5(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/compiler@19.2.5)(@angular/core@19.2.5(rxjs@7.8.2)(zone.js@0.15.0))(@angular/platform-browser@19.2.5(@angular/animations@19.2.5(@angular/common@19.2.5(@angular/core@19.2.5(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.5(rxjs@7.8.2)(zone.js@0.15.0)))(@angular/common@19.2.5(@angular/core@19.2.5(rxjs@7.8.2)(zone.js@0.15.0))(rxjs@7.8.2))(@angular/core@19.2.5(rxjs@7.8.2)(zone.js@0.15.0)))(rxjs@7.8.2)
 
+  '@axe-core/playwright@4.10.1(playwright-core@1.51.1)':
+    dependencies:
+      axe-core: 4.10.3
+      playwright-core: 1.51.1
+
   '@babel/code-frame@7.26.2':
     dependencies:
       '@babel/helper-validator-identifier': 7.25.9
@@ -6755,6 +6805,10 @@ snapshots:
 
   '@pkgr/core@0.2.1': {}
 
+  '@playwright/test@1.51.1':
+    dependencies:
+      playwright: 1.51.1
+
   '@polka/url@1.0.0-next.28': {}
 
   '@rollup/rollup-android-arm-eabi@4.34.8':
@@ -7292,6 +7346,8 @@ snapshots:
       picocolors: 1.1.1
       postcss: 8.5.2
       postcss-value-parser: 4.2.0
+
+  axe-core@4.10.3: {}
 
   axobject-query@4.1.0: {}
 
@@ -8136,6 +8192,9 @@ snapshots:
       minipass: 7.1.2
 
   fs.realpath@1.0.0: {}
+
+  fsevents@2.3.2:
+    optional: true
 
   fsevents@2.3.3:
     optional: true
@@ -9221,6 +9280,20 @@ snapshots:
   pkg-dir@7.0.0:
     dependencies:
       find-up: 6.3.0
+
+  playwright-core@1.51.1: {}
+
+  playwright-ng-schematics@2.0.2(@angular-devkit/architect@0.1902.6(chokidar@4.0.1))(@angular-devkit/core@19.2.6(chokidar@4.0.1))(@angular-devkit/schematics@19.2.6(chokidar@4.0.1)):
+    dependencies:
+      '@angular-devkit/architect': 0.1902.6(chokidar@4.0.1)
+      '@angular-devkit/core': 19.2.6(chokidar@4.0.1)
+      '@angular-devkit/schematics': 19.2.6(chokidar@4.0.1)
+
+  playwright@1.51.1:
+    dependencies:
+      playwright-core: 1.51.1
+    optionalDependencies:
+      fsevents: 2.3.2
 
   postcss-loader@8.1.1(postcss@8.5.2)(typescript@5.7.3)(webpack@5.98.0(esbuild@0.25.1)):
     dependencies:

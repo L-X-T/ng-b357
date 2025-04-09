@@ -22,7 +22,8 @@
     "wba": "npx webpack-bundle-analyzer dist/ng-b357/stats.json",
     "igv": "npx @rx-angular/import-graph-visualizer --entry-points src/main.ts --ts-config tsconfig.app.json",
     "dpdm": "npx dpdm --no-warning --no-tree src/main.ts",
-    "ng:update": "ng update @angular/cli @angular/core @angular/material angular-eslint"
+    "ng:update": "ng update @angular/cli @angular/core @angular/material angular-eslint",
+    "e2e": "ng e2e --ui"
   },
   "private": true,
   "dependencies": {
@@ -40,6 +41,7 @@
     "@angular/router": "^19.2.5",
     "@angular/service-worker": "^19.2.5",
     "@angular/ssr": "^19.2.6",
+    "@axe-core/playwright": "^4.10.1",
     "@jsverse/transloco": "^7.6.1",
     "anychart": "^8.13.0",
     "express": "^4.21.1",
@@ -53,6 +55,7 @@
     "@angular-devkit/build-angular": "^19.2.6",
     "@angular/cli": "^19.2.6",
     "@angular/compiler-cli": "^19.2.5",
+    "@playwright/test": "1.51.1",
     "@types/express": "^5.0.1",
     "@types/jasmine": "~5.1.7",
     "@types/node": "^22.14.0",
@@ -66,6 +69,7 @@
     "karma-coverage": "~2.2.1",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "playwright-ng-schematics": "2.0.2",
     "prettier": "^3.5.3",
     "source-map-explorer": "^2.5.3",
     "typescript": "~5.7.3",
