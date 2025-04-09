@@ -54,7 +54,7 @@ To manually test accessibility in this course, you primarily navigate through yo
 You can use any one this screen readers:
 
 - [**NVDA**](https://nvda.bhvd.de) (Windows, free, okay)
-- [Narrator](https://support.microsoft.com/en-us/windows/complete-guide-to-narrator-e4397a0d-ef4f-b386-d8ae-c172f109bdb1) (Windows, built-in, bad)
+- [Speech Output, Narrator](https://support.microsoft.com/en-us/windows/complete-guide-to-narrator-e4397a0d-ef4f-b386-d8ae-c172f109bdb1) (Windows, built-in, bad)
 - Jaws (Windows, paid, better)
 - [**Voice Over**](https://en.wikipedia.org/wiki/VoiceOver) (Mac/iOS, built-in)
 - [**Talkback**](https://support.google.com/accessibility/android/answer/6283677?hl=en&sjid=14818511639127973246-EU) (Android, built-in)
