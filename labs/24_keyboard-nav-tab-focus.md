@@ -68,7 +68,7 @@ Good luck!
 
    ```html
    <!-- Skip Link -->
-   <button class="skip-link" (click)="onSkipToMainContent()">Skip to main content</button>
+   <button class="skip-link" type="button" (click)="onSkipToMainContent()">Skip to main content</button>
 
    <nav class="sidebar-wrapper">...</nav>
    ```

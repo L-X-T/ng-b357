@@ -87,17 +87,45 @@ Fix it preserving the current styling of the updated heading.
 
 Now check again for issues with your tool of choice! You should find fewer issues.
 
-## Bonus: ARIA states
+## ARIA States
 
 ARIA widget attributes help assistive technology presenting the content to your users.
 
-### Bonus: Button pressed state
+### Button pressed state
 
 Add a pressed state to the sidebar toggle in your `navbar`:
 
 ```html
 <button [...] aria-label="toggle sidebar" [attr.aria-pressed]="sidebarVisible" [...]></button>
 ```
+
+## ARIA Labels
+
+We currently have two `<nav>` elements in our base layout:
+
+1. The sidebar (incl. main nav)
+2. The navbar (incl. sidebar toggle on small screens)
+
+We need different `aria-label` values for better accessibility because it helps screen readers and other assistive technologies to clearly distinguish the two navs.
+
+So let's add the `aria-label` attribute to both navs:
+
+```html
+<nav aria-label="sidebar including main navigation" class="sidebar-wrapper"></nav>
+```
+
+```html
+<nav aria-label="header including sidebar toggle" class="navbar"></nav>
+```
+
+### Bonus: What makes a nav a nav?
+
+The `nav` element is used to define a set of navigation links. It is typically used for the main navigation of a website or application.
+
+- Is our sidebar a navigation element?
+- Is our navbar a navigation element?
+
+Reflect on those questions and decide if you want to keep the `nav` element for both.
 
 ### Bonus: Sidebar expanded state
 
