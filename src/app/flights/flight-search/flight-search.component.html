@@ -60,7 +60,7 @@
             {{ basket[flight.id] ? 'Rem.' : 'Add' }}
           </button>
 
-          <button type="button" class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</button>
+          <a class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</a>
 
           <app-flight-status-toggle [(status)]="flight.delayed" />
         </app-flight-card>
@@ -81,7 +81,7 @@
             {{ basket[flight.id] ? 'Rem.' : 'Add' }}
           </button>
 
-          <button type="button" class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</button>
+          <a class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</a>
 
           <app-flight-status-toggle [(status)]="flight.delayed" />
         </app-flight-card>
