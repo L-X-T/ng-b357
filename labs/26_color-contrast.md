@@ -50,7 +50,7 @@ Now run all your tools once more (on both pages) to find some leftover issues:
 
 Congratulations, you addressed common web accessibility issues in your Angular app! 🎉
 
-![a11y-100.png](../../__material__/_AY_/Labs/a11y-100.png)
+![a11y-100.png](./a11y-100.png)
 
 ## Bonus: Manual checks
 
