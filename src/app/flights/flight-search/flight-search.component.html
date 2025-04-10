@@ -88,8 +88,7 @@
           </button>
 
           <a
-            type="button"
-            class="btn btn-defaultbtn-spacing"
+            class="btn btn-default btn-spacing"
             [routerLink]="['/flights/flight-edit', flight.id, { showDetails: true }]"
           >
             Edit
@@ -114,7 +113,11 @@
             {{ basket[flight.id] ? 'Rem.' : 'Add' }}
           </button>
 
-          <a class="btn btn-default btn-spacing" (click)="onEditFlight(flight.id)">Edit</a>
+          <a
+            class="btn btn-default btn-spacing"
+            [routerLink]="['/flights/flight-edit', flight.id, { showDetails: true }]"
+            >Edit</a
+          >
 
           <app-flight-status-toggle [(status)]="flight.delayed" />
         </app-flight-card>
