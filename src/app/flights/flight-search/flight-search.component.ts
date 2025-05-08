@@ -4,6 +4,7 @@ import {
   DestroyRef,
   effect,
   ElementRef,
+  ɵgetComponentDef as getComponentDef,
   inject,
   signal,
   viewChild,
@@ -105,6 +106,8 @@ export class FlightSearchComponent {
   private readonly router = inject(Router);
 
   constructor() {
+    console.log(getComponentDef(FlightSearchComponent)?.id);
+
     effect(() => console.log('update: ', this.flights())); // to demo effect
 
     if (this.from && this.to) {
