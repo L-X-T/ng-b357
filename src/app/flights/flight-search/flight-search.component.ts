@@ -1,4 +1,14 @@
-import { Component, computed, DestroyRef, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  ɵgetComponentDef as getComponentDef,
+  inject,
+  signal,
+  viewChild,
+} from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
@@ -62,6 +72,8 @@ export class FlightSearchComponent {
   private readonly router = inject(Router);
 
   constructor() {
+    console.log(getComponentDef(FlightSearchComponent)?.id);
+
     effect(() => console.log('update: ', this.flights())); // to demo effect
 
     if (this.from && this.to) {
@@ -79,7 +91,7 @@ export class FlightSearchComponent {
 
   protected onSearch(): void {
     if (this.flightSearchForm()?.invalid) {
-      this.markFormGroupDirty(this.flightSearchForm());
+      this.markFormGroupTouched(this.flightSearchForm());
       return;
     }
 
@@ -182,7 +194,7 @@ export class FlightSearchComponent {
     this.blinkService.blinkElementsFirstChild(this.elementRef);
   }
 
-  private markFormGroupDirty(formGroup: NgForm): void {
-    Object.values(formGroup.controls).forEach((control) => control.markAsDirty());
+  private markFormGroupTouched(formGroup: NgForm): void {
+    Object.values(formGroup.controls).forEach((control) => control.markAsTouched());
   }
 }
