@@ -35,6 +35,8 @@ This document contains guidelines for _Angular_ styling (SCSS) files.
   - `margin: 0;`
 - explicitly write the 0 (Prettier)
   - `margin: 0.5em;`
+- use `@use` and `@forward` instead of deprecated `@import`
+- use `rem` or `em` for typography instead of `px` (Accessibility)
 
 ### Should do
 
@@ -52,6 +54,7 @@ This document contains guidelines for _Angular_ styling (SCSS) files.
   - 5.) Objects
   - 6.) Variants
 - use hsl()/hsla() colors (via custom properties)
+- prefer CSS logical properties (e.g., `margin-inline-start`) over physical properties (`margin-left`)
 
 ## Don't
 
@@ -69,6 +72,7 @@ This document contains guidelines for _Angular_ styling (SCSS) files.
   - howto [choose between grid and flexbox](https://medium.com/youstart-labs/beginners-guide-to-choose-between-css-grid-and-flexbox-783005dd2412)
 - try to avoid writing properties which could be shorthanded (e.g., margin)
 - try to avoid `&` to nest styles (for better readability)
+- try to avoid using `::ng-deep` as it is deprecated (use CSS custom properties instead)
 
 ## Resources
 

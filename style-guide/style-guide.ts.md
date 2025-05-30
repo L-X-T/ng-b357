@@ -12,18 +12,21 @@ This document contains guidelines for _Angular_ TypeScript files.
   - rule of one (https://angular.dev/style-guide#rule-of-one)
   - put entities and services into the scope where they are being used
 - use [**Prettier**](https://prettier.io/)
-  - use config from /.prettierrc.json
+  - use config from /prettier.config.js
   - use for .ts, .html, .scss, .md, (@ToDo check .json)
   - use Prettier on save hook
 - use [**ESLint**](https://eslint.org/)
-  - use config from /.eslint.json (@ToDo check .json)
+  - use config from /eslint.config.js
 - use descriptive and meaningful names for all symbols
   - boolean fields always start with `is`, `has`, `show` or alike (e.g. `isLoading` or `hasChanges()`)
   - event functions start with `on` (e.g., `onSave()`)
 - refactor symbol names if necessary (e.g., due to requirements changes)
-- annotate types for everything except implicitly deferred (e.g. `const x = 1`)
+- annotate types for everything except implicitly inferred (e.g. `const x = 1`)
   - also for function parameters and return values (also `void`)
-- clean up debug code before committing (e.g., no console.log)
+- prefer `Type[]` over `Array<Type>` for array types
+- always use curly braces `{}` for control flow statements
+- clean up debug code before committing (e.g., no console.log, temporarily disabled in ESLint for debugging)
+- remove unused variables and imports
 - use `private` by default, to encapsulate properties and methods
 - use `protected` for symbols that should be accessible in the component's view template
 - use `readonly` by default, unless a property needs to be reassigned
@@ -37,7 +40,9 @@ This document contains guidelines for _Angular_ TypeScript files.
 ### Should do
 
 - keep components and directives focused on presentation
-- max. 400 LoC per file (e. g. extract static functions to utils)
+- max 400 LoC per file (e.g. extract static functions to utils)
+- max 120 characters per line of code (160 for comments)
+- avoid overly complex functions (max cyclomatic complexity of 20)
 - prefer types to interfaces
 - prefer types to enums (enums are okay for strings and magic numbers)
 - group components, directives, pipes & services like this
@@ -56,7 +61,12 @@ This document contains guidelines for _Angular_ TypeScript files.
   - no alphabetic order, no order by access modifier
 - avoid nested RxJS subscriptions (e.g., use switchMap instead)
 - prefer easily understandable code over performance (except for performance-critical code)
+- use strict equality (`===` / `!==`) instead of loose equality (`==` / `!=`)
+- sort imports (group and sort named imports alphabetically)
 - prefer short functions (no spaghetti code)
+- avoid variable shadowing
+- declare one variable per statement
+- prefer arrow functions for callbacks
 - use comments for complex code, and only if necessary (the usage of descriptive and meaningful names for methods and variables should be enough in many cases, comments do not make up for bad code)
 - mark todos with `// @ToDo: task description`
 - distinguish between Smart/Controller and Dumb/Presentational Components
@@ -64,8 +74,10 @@ This document contains guidelines for _Angular_ TypeScript files.
 - `immutablility` over `mutability` (for `OnPush` and `OnChanges`)
   - use `...` spread operator for shallow copies
   - use `structeredClone()` or even better `klona` for deep copies
-- prefer `ChangeDetectionStrategy.OnPush`
+- prefer `ChangeDetectionStrategy.OnPush` (temporarily disabled in ESLint for learning)
 - prefer `Standalone Components` over `Modules`
+- prefer new Signals API for state management (`signal()`, `computed()`, `effect()`)
+- prefer signal inputs (`input()`, `input.required()`), outputs (`output()`), and queries (`viewChild()`) over decorators (`@Input()`, `@Output()`, `@ViewChild()`)
 - prefer default `ViewEncapsulation` (`Emulated`)
 - prefer `inject()` over constructor dependency injection
   - group all `inject()` calls at the top of the class

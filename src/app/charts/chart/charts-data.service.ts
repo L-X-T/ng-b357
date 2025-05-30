@@ -19,7 +19,7 @@ export class ChartsDataService {
     data4: this.dataSet_.mapAs({ x: ['customName'], value: ['customValue4'] }),
   };
 
-  public getData(key = 'data1') {
+  getData(key = 'data1'): anychart.data.View {
     return this.mappings_[key];
   }
 }

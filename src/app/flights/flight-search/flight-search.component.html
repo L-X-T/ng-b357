@@ -14,10 +14,9 @@
       [maxlength]="maxLength"
       [pattern]="pattern"
       [ngModelOptions]="{ updateOn: 'change' }"
-      [(ngModel)]="from"
-    />
+      [(ngModel)]="from" />
     @if (flightSearchForm.controls['from']) {
-      <app-flight-validation-errors [errors]="flightSearchForm.controls['from'].errors" fieldLabel="From" />
+      <app-flight-validation-errors fieldLabel="From" [errors]="flightSearchForm.controls['from'].errors" />
     }
   </div>
   <div class="form-group">
@@ -29,10 +28,9 @@
       [minlength]="minLength"
       [maxlength]="maxLength"
       [pattern]="pattern"
-      [(ngModel)]="to"
-    />
+      [(ngModel)]="to" />
     @if (flightSearchForm.controls['to']) {
-      <app-flight-validation-errors [errors]="flightSearchForm.controls['to'].errors" fieldLabel="To" />
+      <app-flight-validation-errors fieldLabel="To" [errors]="flightSearchForm.controls['to'].errors" />
     }
   </div>
   <div class="form-group">
@@ -40,8 +38,7 @@
       type="button"
       class="btn btn-default btn-spacing"
       [disabled]="!to || !from || flightSearchForm.invalid || flightSearchForm.pending"
-      (click)="onSearch()"
-    >
+      (click)="onSearch()">
       Search
     </button>
     @if (oldSchoolFlights.length > 0) {

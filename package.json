@@ -51,6 +51,7 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
+    "@angular-eslint/builder": "^20.7.0",
     "@angular/build": "^20.3.9",
     "@angular/cli": "^20.3.9",
     "@angular/compiler-cli": "^20.3.10",
@@ -62,7 +63,6 @@
     "angular-eslint": "^20.6.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
     "jasmine-core": "~5.12.1",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",

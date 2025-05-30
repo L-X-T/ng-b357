@@ -1,8 +1,10 @@
 # Angular Coding Style Guide
 
-Version 1.0.0, last updated on 2024-12-13.
+Version 1.0.1, last updated on 2026-03-15.
 
 This document contains a general style guide for Angular projects.
+
+It can be used by human developers as well as AI agents.
 
 There are specific style guides for:
 
@@ -16,15 +18,15 @@ There are specific style guides for:
 ### Must do
 
 - run [**Prettier**](https://prettier.io/) on save and before committing
-  - use config from /.prettierrc.json
+  - use config from /prettier.config.js
   - use for these endings: {css,html,js,json,md,scss,ts}
 - use **LF endings**
 - use **UTF-8** (no BOM)
 
 ### Should do
 
-- KISS (Keep It Short & Simple)
 - Be consistent
+- KISS (Keep It Short & Simple)
 
 ## Don't
 
@@ -36,4 +38,4 @@ There are specific style guides for:
 
 ## ToDos
 
-- @ToDo Add style guide for unit (JEST) and e2e (Cypress) tests.
+- @ToDo Add style guide for unit (Vitest), e2e (Playwright) tests and maybe Storybook.
