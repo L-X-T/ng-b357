@@ -53,13 +53,13 @@
               ],
               "outputHashing": "none",
               "sourceMap": true,
-              "statsJson": true,
               "namedChunks": true
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
+              "statsJson": true,
               "namedChunks": true
             }
           },
