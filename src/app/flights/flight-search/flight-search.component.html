@@ -16,7 +16,7 @@
       [ngModelOptions]="{ updateOn: 'change' }"
       [(ngModel)]="from" />
     @if (flightSearchForm.controls['from']) {
-      <app-flight-validation-errors [errors]="flightSearchForm.controls['from'].errors" fieldLabel="From" />
+      <app-flight-validation-errors fieldLabel="From" [errors]="flightSearchForm.controls['from'].errors" />
     }
   </div>
   <div class="form-group">
@@ -30,7 +30,7 @@
       [pattern]="pattern"
       [(ngModel)]="to" />
     @if (flightSearchForm.controls['to']) {
-      <app-flight-validation-errors [errors]="flightSearchForm.controls['to'].errors" fieldLabel="To" />
+      <app-flight-validation-errors fieldLabel="To" [errors]="flightSearchForm.controls['to'].errors" />
     }
   </div>
   <div class="form-group">

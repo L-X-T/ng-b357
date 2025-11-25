@@ -109,7 +109,7 @@ module.exports = tseslint.config(
       '@angular-eslint/template/attributes-order': [
         'error',
         {
-          alphabetical: true,
+          // alphabetical: true,
           order: [
             'STRUCTURAL_DIRECTIVE', // deprecated, use @if and @for instead
             'TEMPLATE_REFERENCE', // e.g. `<input #inputRef>`
