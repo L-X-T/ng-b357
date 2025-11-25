@@ -21,7 +21,7 @@
 
 For a variety of reasons (a11y, SEO, AI, ...) it's strongly recommended to use **semantic HTML 5 tags** in your Angular app. Furthermore, your Angular HTML view templates should create [valid HTML](https://validator.w3.org/) - however, we won't focus on that in this workshop.
 
-**Lab time:** 30–45 minutes
+**Lab time:** 40–50 minutes
 
 ## Pre check
 

@@ -16,7 +16,7 @@
 
 In this lab, you will learn how to improve the accessibility of your Angular forms.
 
-**Lab time:** 30–45 minutes
+**Lab time:** 40–50 minutes
 
 ## Associate label with form elements
 

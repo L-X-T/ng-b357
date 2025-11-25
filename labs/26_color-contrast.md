@@ -11,7 +11,7 @@
 
 In this lab, you will learn how to improve the **accessibility** of your Angular app by fixing **color & contrast** issues.
 
-**Lab time:** 30–45 minutes
+**Lab time:** 20–30 minutes
 
 ## Find contrast issues
 

@@ -11,7 +11,7 @@
 
 In this lab, you will learn how to improve the **accessibility** of your Angular app by setting unique page titles and adding the `aria-current` attribute to the sidebar navigation.
 
-**Lab time:** 30–45 minutes
+**Lab time:** 30–40 minutes
 
 ## Define unique page titles in your SPA
 

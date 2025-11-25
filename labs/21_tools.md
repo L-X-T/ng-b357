@@ -21,7 +21,7 @@ In this lab, you will learn how to use some of the most popular **accessibility 
 
 These tools will help you identify accessibility issues in your Angular app.
 
-**Lab time:** 30–45 minutes
+**Lab time:** 30–40 minutes
 
 ## Install: Chrome extensions
 
