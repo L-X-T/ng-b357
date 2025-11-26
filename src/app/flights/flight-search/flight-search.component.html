@@ -8,7 +8,7 @@
 
     @let hasFromErrors =
       flightSearchForm.controls['from'] &&
-      flightSearchForm.controls['from'].touched &&
+      flightSearchForm.controls['from'].dirty &&
       flightSearchForm.controls['from'].errors;
 
     <input
@@ -37,7 +37,7 @@
 
     @let hasToErrors =
       flightSearchForm.controls['to'] &&
-      flightSearchForm.controls['to'].touched &&
+      flightSearchForm.controls['to'].dirty &&
       flightSearchForm.controls['to'].errors;
 
     <input
@@ -56,6 +56,60 @@
       <app-flight-validation-errors id="toErrors" fieldLabel="To" [errors]="flightSearchForm.controls['to'].errors" />
     }
   </div>
+
+  <div class="form-group">
+    <label for="tripNative">Trip (native select)</label>
+
+    <select class="form-control form-select" id="tripNative" name="tripNative" [(ngModel)]="trip">
+      <option selected="" disabled="" value="">Select a trip</option>
+      @for (trip of trips; track trip.value) {
+        <option [value]="trip.value">{{ trip.label }}</option>
+      }
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="tripAngular">Trip (Angular ARIA select)</label>
+
+    <div class="angular-select" ngCombobox readonly>
+      <div #origin class="select">
+        <span class="combobox-label">
+          <span class="selected-label-text">{{ displayTrip() }}</span>
+        </span>
+        <input
+          aria-label="Label dropdown"
+          id="tripAngular"
+          name="tripAngular"
+          placeholder="Select a label"
+          ngComboboxInput
+          [(ngModel)]="trip" />
+        <span class="example-arrow material-symbols-outlined" translate="no">arrow_drop_down</span>
+      </div>
+
+      <ng-template ngComboboxPopupContainer>
+        <ng-template
+          [cdkConnectedOverlay]="{ origin, usePopover: 'inline', matchWidth: true }"
+          [cdkConnectedOverlayOpen]="true">
+          <div class="example-popup-container">
+            <div ngListbox [multi]="false" (valuesChange)="trip.set($event[0])">
+              @for (trip of trips; track trip.value) {
+                <div ngOption [value]="trip.value" [label]="trip.label">
+                  <span class="example-option-text">{{ trip.label }}</span>
+                  <span class="example-option-check material-symbols-outlined" translate="no">check</span>
+                </div>
+              }
+            </div>
+          </div>
+        </ng-template>
+      </ng-template>
+    </div>
+  </div>
+
+  <div>
+    Trip value:
+    <pre>{{ trip() | json }}</pre>
+  </div>
+
   <div class="form-group">
     <button
       type="submit"

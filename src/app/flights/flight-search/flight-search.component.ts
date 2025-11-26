@@ -1,9 +1,23 @@
-import { Component, computed, DestroyRef, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  effect,
+  ElementRef,
+  inject,
+  signal,
+  viewChild,
+  viewChildren,
+} from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NavigationEnd, Router, RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+
+import { Combobox, ComboboxInput, ComboboxPopup, ComboboxPopupContainer } from '@angular/aria/combobox';
+import { Listbox, Option } from '@angular/aria/listbox';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 import { BehaviorSubject, filter, Observer } from 'rxjs';
 
@@ -25,6 +39,13 @@ import { FlightValidationErrorsComponent } from '../flight-validation-errors/fli
     FlightStatusToggleComponent,
     FlightValidationErrorsComponent,
     RouterLink,
+    Combobox,
+    ComboboxInput,
+    ComboboxPopup,
+    ComboboxPopupContainer,
+    Listbox,
+    Option,
+    OverlayModule,
   ],
   templateUrl: './flight-search.component.html',
   styleUrl: './flight-search.component.scss',
@@ -50,6 +71,28 @@ export class FlightSearchComponent {
     3: true,
     5: true,
   };
+
+  protected trips = [
+    { value: 'fast', label: 'Fast trip' },
+    { value: 'slow', label: 'Slow trip' },
+    { value: 'round', label: 'Round trip' },
+  ];
+  protected trip = signal<string>('');
+  /*protected displayTrip = computed(() => {
+    const values = this.listbox()?.values() || [];
+    return values.length ? this.trips.find((aTrip) => aTrip.value === values[0])?.label : 'Select a trip';
+  });*/
+  protected displayTrip = computed(() => {
+    const trip = this.trip();
+    return trip ? this.trips.find((aTrip) => aTrip.value === trip)?.label : 'Select a trip';
+  });
+
+  /** The combobox listbox popup. */
+  listbox = viewChild<Listbox<string>>(Listbox);
+  /** The options available in the listbox. */
+  options = viewChildren<Option<string>>(Option);
+  /** A reference to the ng aria combobox. */
+  combobox = viewChild<Combobox<string>>(Combobox);
 
   private readonly flightSearchForm = viewChild.required<NgForm>('flightSearchForm');
 
@@ -79,7 +122,7 @@ export class FlightSearchComponent {
 
   protected onSearch(): void {
     if (this.flightSearchForm()?.invalid) {
-      this.markFormGroupDirty(this.flightSearchForm());
+      this.flightSearchForm().form.markAllAsDirty();
       return;
     }
 
@@ -176,9 +219,5 @@ export class FlightSearchComponent {
 
   protected blinkFirstChild(): void {
     this.blinkService.blinkElementsFirstChild(this.elementRef);
-  }
-
-  private markFormGroupDirty(formGroup: NgForm): void {
-    Object.values(formGroup.controls).forEach((control) => control.markAsDirty());
   }
 }
